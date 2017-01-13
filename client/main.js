@@ -1,30 +1,30 @@
-import {Router, nativeScrollBehavior} from 'meteor/akryum:vue-router2';
+import {Meteor} from 'meteor/meteor';
+import Vue from 'vue';
+
+import { sync } from 'vuex-router-sync';
 import '/imports/startup/client';
-import store from '/imports/vuex/store/index';
-import { initCartsState } from '/imports/vuex/store/actions';
-import VueLazyload from 'vue-lazyload';
+// Libs
+
+_ = lodash;
+
+import { initCartsState } from '/imports/ui/vuex/actions';
 
 Vue.config.devtools = true;
-
-Vue.use(VueLazyload, {
-    preLoad: 3,
-    error: 'img/error.png',
-    loading: 'img/loader.svg',
-    attempt: 1
-})
+Vue.config.debug = true;
 // // Main app
 import App from '/imports/ui/App.vue';
-// Create router instance
-const router = new Router({
-  mode: 'history',
-  scrollBehavior: nativeScrollBehavior,
-});
 
+
+// sync(store, router);
 // App start
 Meteor.startup(() => {
+  import router from './routes';
+  import store from '/imports/client/vuex/index';
+  sync(store, router);
+  
   // Start the router
   new Vue({
-    router: router.start(),
+    router,
     render: h => h(App),
     store,
     mounted() {

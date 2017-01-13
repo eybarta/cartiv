@@ -14,8 +14,8 @@ export default {
 }
 </script>
 <style lang="stylus">
-@import '../../../node_modules/rupture/rupture/index';
-@import "../../../node_modules/kouto-swiss/index";
+@import '../../../../node_modules/rupture/rupture/index';
+@import "../../../../node_modules/kouto-swiss/index";
 
 color-white = quad( #abbabc )
 .app-menu

@@ -8,7 +8,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
-import { updateCurrentCartLocation } from '../../vuex/store/actions';
+import { updateCurrentCartLocation } from '../../vuex/actions';
     export default{
         props: ['locations'],
         methods: {

@@ -23,7 +23,7 @@
 </template>
 <script>
 import { mapActions, mapState } from 'vuex';
-import { toggleAddCart } from '../../vuex/store/actions';
+import { toggleAddCart } from '../vuex/actions';
 import AddCart from '../components/AddCart.vue';
 export default {
 	created() {
@@ -43,7 +43,7 @@ export default {
 }
 </script>
 <style lang="stylus">
-@import '../../../node_modules/rupture/rupture/index';
+@import '~node_modules/rupture/rupture/index';
 
 h1
 	font-size 140px

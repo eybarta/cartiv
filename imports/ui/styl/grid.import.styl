@@ -2,7 +2,7 @@
 
 .container
 	position relative
-	lost-center 980px 60px
+	lost-center 1280px 60px
 	margin-top 60px
 .grid-parent
 	lost-utility clearfix
@@ -29,3 +29,9 @@
 	lost-utility clearfix
 	& > *
 		lost-waffle 1/6 6 20px
+
+
+for num in (1..12)
+	.col-{num}
+		lost-column num/12
+	

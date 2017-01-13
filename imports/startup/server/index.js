@@ -1,2 +1,2 @@
 import '../../api/accounts/methods';
-import { Carts } from '../../api/carts/carts.js';
+import { Carts } from '../../api/collections/carts.js';

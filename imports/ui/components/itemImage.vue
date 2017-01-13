@@ -12,7 +12,7 @@
 -->
 <script>
 import { mapActions } from 'vuex';
-import { updateCurrentCartThumb } from '../../vuex/store/actions';
+import { updateCurrentCartThumb } from '../../vuex/actions';
 
 import itemSettings from './itemSettings.vue';
 export default{
@@ -93,6 +93,7 @@ export default{
     }
 }
 </script>
-<style lang="stylus">
-
+<style lang="stylus" scoped>
+i
+    color #fff8dc
 </style>

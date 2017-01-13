@@ -5,19 +5,21 @@
     "start": "meteor run"
   },
   "dependencies": {
-    "babel-runtime": "^6.20.0",
+    "babel-plugin-transform-runtime": "^6.15.0",
+    "babel-runtime": "^6.18.0",
     "meteor-node-stubs": "~0.2.0",
-    "shortid": "^2.2.6",
     "vue": "^2.1.8",
-    "vue-lazyload": "^1.0.0-rc6",
-    "vue-meteor-tracker": "^1.0.4",
+    "vue-meteor-tracker": "^1.0.3",
     "vue-router": "^2.0.0-rc.5",
-    "vuex": "^2.1.1"
+    "vuex": "^2.1.1",
+    "vuex-router-sync": "^4.1.0"
   },
   "devDependencies": {
-    "autoprefixer": "^6.6.0",
+    "autoprefixer": "^6.6.1",
+    "kouto-swiss": "^1.0.0",
     "lost": "^8.0.0",
-    "rucksack-css": "^0.9.1"
+    "rucksack-css": "^0.9.1",
+    "rupture": "^0.6.2"
   },
   "vue": {
     "use": {

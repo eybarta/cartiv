@@ -24,7 +24,7 @@
 </template>
 <script>
 import { mapActions, mapState,mapGetters } from 'vuex';
-import { toggleAddCart } from '../../vuex/store/actions';
+import { toggleAddCart } from '../../vuex/actions';
 // Components
 import autoComplete from './autoComplete.vue';
 import imageSelect from './imageSelect.vue';
@@ -113,8 +113,8 @@ export default {
 }
 </script>
 <style lang="stylus">
-@import '../../../node_modules/rupture/rupture/index';
-@import '../../../node_modules/kouto-swiss/index';
+@import '../../../../node_modules/rupture/rupture/index';
+@import '../../../../node_modules/kouto-swiss/index';
 @import '../styl/options.import';
 .backdrop
 	h3

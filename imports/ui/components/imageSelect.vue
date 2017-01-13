@@ -1,13 +1,4 @@
 <template>
-    <!--<transition-group name="list" tag="p">-->
-    <!--<span v-for="item in items" v-bind:key="item" class="list-item">-->
-      <!--{{ item }}-->
-    <!--</span>-->
-    <!--</transition-group>-->
-    <!--<div class="autocomplete">-->
-        <!--<item-image v-for="image in images" :src="image" callback="updateCurrentCartThumb"></item-image>-->
-    <!--</div>-->
-
     <transition-group class="autocomplete" name="flip-list" tag="div" >
         <item-image v-for="image in images" :key="image" class="image-item" :src="image" callback="updateCurrentCartThumb" appear></item-image>
 
