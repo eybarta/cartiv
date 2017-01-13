@@ -1,0 +1,25 @@
+<head>
+  <title>cartiv.io</title>
+  <script src="https://apis.google.com/js/api.js"></script>
+</head>
+
+<body>
+  {{> cartapp }}
+</body>
+
+
+<template name="cartapp">
+  {{> account }}
+  <app></app>
+</template>
+
+
+<template name="account">
+ {{#if unsigned}}
+  	{{> atForm }}
+{{else}}
+	<div class="profile">
+		<span class="user">{{ currentUser.profile.name }}</span><button class="logout-btn">LOG OUT</button>
+	</div>
+{{/if }}
+</template>

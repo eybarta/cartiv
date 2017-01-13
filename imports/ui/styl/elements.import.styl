@@ -1,0 +1,17 @@
+@import './variables.import';
+
+// THUMBNAIL ITEMS
+for name, size in sizes
+	.thumb-{name}
+		width (size)vw
+		height @width
+		& > i
+			font-size (size/2)vw
+			
+			
+.remove
+	color red
+.edit
+	color orange
+.upload
+	color blue
