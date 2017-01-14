@@ -1,6 +1,7 @@
-import VueRouter from 'vue-router';
+// import VueRouter from 'vue-router';
 
-Vue.use(VueRouter);
+// Vue.use(VueRouter);
+
 
 // pages
 import Home from '/imports/ui/pages/Home.vue';
@@ -8,8 +9,7 @@ import CartsBank from '/imports/ui/pages/CartsBank.vue';
 import Cart from '/imports/ui/pages/Cart.vue';
 
 
-
-const routes = [
+export const routes = [
 	{
 		path: '/',
 		name: 'home',
@@ -28,10 +28,10 @@ const routes = [
 ]
 
 
-export default new VueRouter({
-  mode: 'history',
-  routes
-})
+// export default new VueRouter({
+//   mode: 'history',
+//   routes
+// })
 
 //  Router.configure(router => {
 //  //   Simple routes

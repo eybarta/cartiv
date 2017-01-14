@@ -1,26 +1,36 @@
-import {Meteor} from 'meteor/meteor';
 import Vue from 'vue';
+import Vuex from 'vuex';
+import {Meteor} from 'meteor/meteor';
+import VueRouter from 'vue-router';
+Vue.use(VueRouter);
+Vue.use(Vuex);
+import routes from './routes';
+import store from '/imports/client/vuex/index';
 
 import { sync } from 'vuex-router-sync';
 import '/imports/startup/client';
+
+const router =  new VueRouter({
+  mode: 'history',
+  routes
+})
+
+sync(store, router);
 // Libs
 
 _ = lodash;
 
-import { initCartsState } from '/imports/ui/vuex/actions';
+import { initCartsState } from '/imports/vuex/actions';
 
 Vue.config.devtools = true;
 Vue.config.debug = true;
 // // Main app
-import App from '/imports/ui/App.vue';
 
 
 // sync(store, router);
 // App start
 Meteor.startup(() => {
-  import router from './routes';
-  import store from '/imports/client/vuex/index';
-  sync(store, router);
+  import App from '/imports/ui/App.vue';
   
   // Start the router
   new Vue({
