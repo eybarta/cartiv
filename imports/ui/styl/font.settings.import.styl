@@ -1,0 +1,18 @@
+@import './variables.import';
+
+fontsizer(min = 12px,max = 18px)
+	font-size responsive min max;
+	
+	
+for name, size in fontsize
+	.txt-{name}
+		font-size responsive unit(size/16, 'rem') unit(size/16*1.4, 'rem')
+h2
+	fontsizer(32px, 44px)
+h3
+	fontsizer(22px, 34px)
+h4
+	fontsizer(14px, 26px)
+	
+.big-icon
+	fontsizer(18px, 54px)

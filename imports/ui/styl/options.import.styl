@@ -1,0 +1,40 @@
+@import './variables.import.styl'
+// OPTIONS
+.clearfix:after
+	content ''
+	display block
+	visibility hidden
+	height 0
+	clear both
+.right
+	float right
+.left
+	float left
+.txt-right
+	text-align right
+.vh-center
+	position relative
+	& > *:not(.uncenter):first-child
+		absolute 50% false false 50%
+		transform translate(-50% ,-50%)
+.v-center
+	absolute 50% false false false
+	transform translate(0,-50%)
+.h-center
+	absolute false false false 50%
+	transform translate(-50%,0)
+// absolute positions
+.r-corner
+	absolute 15px 15px false false
+	color #fff
+	
+	
+// COLORS
+.red
+	color red
+.orange
+	color orange
+.dark
+	color dark
+	
+	
