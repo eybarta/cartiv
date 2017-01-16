@@ -12,14 +12,13 @@ export default{
     props: ['images'],
     created() {
         console.log("IMAGES >", this.images);
-        var ref = this;
     },
     components:{
         itemImage
     },
     computed: {
         imageShuffle() {
-            return _.shuffle(ref.images);
+            return _.shuffle(this.images);
         }
     }
 }

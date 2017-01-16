@@ -1,6 +1,6 @@
 <template>
     <div v-show="!!defaultView || !!loaded" :class="[thumbnailClass, preloaderClass]" @click="actionCallback">
-        <i v-if="!!defaultView && !loaded" :class="defaultView"></i>
+        <i v-if="!src || (!!defaultView && !loaded)" :class="defaultView"></i>
         <item-settings v-if="!!actions.length" :actions="actions"></item-settings>
     </div>
 </template>
@@ -18,9 +18,8 @@ import itemSettings from './itemSettings.vue';
 export default{
     props: {
         src: {
-            type: String,
-            required: true
-        },
+            type: String
+            },
         actions: {
             type: [String, Array],
             default: ''
@@ -52,6 +51,7 @@ export default{
         }
     },
     mounted() {
+        if (!this.src) return;
         let ref = this;
         setTimeout(()=> {
             let src = ref.src;

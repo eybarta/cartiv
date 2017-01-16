@@ -1,7 +1,7 @@
 <template>
     <div class="add-product">
         <h4>ADD NEW PRODUCT</h4>
-      		<i @click.prevent="toggleAddCart" class="fa fa-close btn r-corner"></i>
+      		<i @click.prevent="toggleAddProduct" class="fa fa-close btn r-corner"></i>
         <image-uploader  class="col-4" v-model="image"></image-uploader>
         <div class="col-8">
             <ul class="form">
@@ -26,7 +26,12 @@
                 <li>
                     <input v-model="cost" type="number" placeholder="Cost of tems">
                 </li>
+                <li>
+                    <input type="checkbox" id="checkbox" v-model="attach">
+                    <label for="checkbox">Attach to current cart?</label>
+                </li>
             </ul>
+            <button class="btn btn-save" @click="submitProduct">SAVE</button>
         </div>
     </div>
 </template>
@@ -42,27 +47,43 @@ export default{
             price_max:null,
             amount: null,
             cost:null,
-            image:null
+            image:null,
+            location_id: null,
+            attach:true,
+            _userId: Accounts.userId()
         }
     },
     created() {
-        console.log('yo from inventory >> ', this.inventory);
+        this.$set(this, 'location_id', this.$route.params.cartId);
+        // this.$set(this, '_userId', Accounts.userId());
+        console.log('created from inventory >> ');
     },
     mounted() {
-        console.log('yo from inventory >> ', this.inventory);
+        console.log('yo fromdfvzdfvsdfvsdfvsdfvsd inventory >> ', this.$route);
     },
     components: {
         ImageUploader,
     },
     methods: {
         ...mapActions([
-            'toggleAddProduct'
+            'toggleAddProduct',
+            'saveProduct'
         ]),
         imageuploaded(res) {
             console.log(">> ", res);
             if (res.errcode == 0) {
                 this.src = 'http://img1.vued.vanthink.cn/vued751d13a9cb5376b89cb6719e86f591f3.png';
             }   
+        },
+        submitProduct() {
+            let product = _.clone(this.$data);
+            console.log("1 save prod >> ", this.$data)
+            delete product['attach'];
+            if (!this.attach) {
+                delete product['location_id'];
+            }
+            console.log("2 Save product > ", product);
+            this.saveProduct(product);
         }
     },
 }
@@ -92,5 +113,7 @@ export default{
     .product-image
         border 1px solid #c1c1c1
         text-align center
+    .btn-save
+        background-color green
 
 </style>

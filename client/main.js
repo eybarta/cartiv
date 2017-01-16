@@ -2,8 +2,11 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import {Meteor} from 'meteor/meteor';
 import VueRouter from 'vue-router';
+// import VueMeteorTracker from 'vue-meteor-tracker';
 Vue.use(VueRouter);
 Vue.use(Vuex);
+// Vue.use(VueMeteorTracker);
+
 import {routes} from './routes';
 import {storeconfig} from '/imports/vuex';
 
@@ -23,7 +26,7 @@ sync(store, router);
 
 _ = lodash;
 
-import { initCartsState } from '/imports/vuex/actions';
+import { initCartsState, initInventoryState } from '/imports/vuex/actions';
 import App from '/imports/ui/App.vue';
 
 Vue.config.devtools = true;
@@ -42,10 +45,16 @@ Meteor.startup(() => {
     store,
     mounted() {
         console.log("userid > ", Accounts.userId());
-        let ref = this;
-        setTimeout(()=> {
-            ref.$store.dispatch('initCartsState', Accounts.userId());
-        },1000)
+        this.$store.dispatch('initCartsState', Accounts.userId());
+        
+
+        // console.log("init carts >> ", carts);
+        // let ref = this;
+        // setTimeout(()=> {
+        //     ref.$store.dispatch('initCartsState', Accounts.userId());
+        //     ref.$store.dispatch('initInventoryState', Accounts.userId());
+            
+        // },1000)
     }
   }).$mount('app');
 });

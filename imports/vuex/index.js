@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import Vuex from 'vuex';
 import * as actions from './actions'
 
@@ -20,8 +21,9 @@ const mutations = {
     SAVE_CART (state, cart) {
         state.carts.push(cart);
     },
-    INIT_CARTS_STATE (state, carts) {
-        state.carts = carts;
+    UPDATE_CARTS_STATE (state, carts) {
+        Vue.set(state, 'carts', carts)
+        // state.carts = carts;
     },
     UPDATE_CURRENT_CART_LOCATION(state, location) {
         if (_.isEmpty(state.currentCart)) {
@@ -40,6 +42,9 @@ const mutations = {
         state.currentCart.thumb = image;
     },
     // inventory
+    INIT_INVENTORY_STATE (state, inventory) {
+        state.inventory = inventory;
+    },
     TOGGLE_ADD_PRODUCT (state) {
         state.activeAddProduct = !state.activeAddProduct;
     },
@@ -60,9 +65,19 @@ const getters = {
 	activeInventory: (state, getters) => {
 		let cartId = state.route.params.cartId;
 			console.log('in inventory getter.. CART == ', cartId);
-		let inventory = (!cartId) ? null : _.find(state.inventory, (o) => { return o.location._id == cartId });
+console.log('inventory from state ... ', state.inventory);
+
+            setTimeout(() => {
+                console.log('22 inventory from state ... ', state.inventory);
+
+            },1000)
+            let inventory = _.filter(state.inventory, product => {
+                console.log("product > ", product);
+                return product.location_id == cartId
+            })
+		// let inventory = (!cartId) ? null : _.find(state.inventory, product => { return product.cart_id == cartId });
 		    console.log("inventory >> ", inventory);
-            return !!inventory && inventory.length ? inventory[0] : null;
+            return inventory
 	},
 }
 export const storeconfig = {

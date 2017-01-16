@@ -5,12 +5,12 @@
 		<ul>
 
 			<transition-group class="waffle-parent-3" name="flip-list" tag="ul" appear>
-				<li class="new-cart" @click.prevent="toggleAddCart">
+				<li class="new-cart" @click.prevent="toggleAddCart" :key="0">
 					<div class="location-thumb">
 						<i class="fa fa-plus big-icon"></i>
 					</div>
 				</li>
-				<li v-for="cart in carts" :key="cart">
+				<li v-for="cart in carts" :key="cart._id">
 					<router-link :to="{ name: 'cart', params: { cartId: cart._id }}">
 						<item-image :src="cart.thumb" default-view="fa fa-building-o" size="big" :loader="false" :actions="['remove','edit','upload']"></item-image>
 						<span class="location-name txt-small ">
@@ -29,12 +29,31 @@
 <script>
 import { mapActions, mapState, mapGetters } from 'vuex';
 import { toggleAddCart } from '/imports/vuex/actions';
+import { Carts } from '/imports/api/collections/carts.js'
 import AddCart from '../components/AddCart.vue';
 import itemImage from "../components/itemImage.vue";
 export default {
 	created() {
 		console.log('enter screen was created successfuly >> ', this.carts);
 	},
+	mounted() {
+			// console.log(this.$subReady.carts);
+	},
+	// data() {
+	// 	return {
+	// 		carts:null
+	// 	}
+	// },
+	// meteor: {
+	// 	subscribe: {
+	// 		'carts':[]
+	// 	},
+	// 	carts () {
+	// 		return Carts.find({}, {
+	// 			sort: {date: -1}
+	// 		});
+	// 	}
+	// },
 	components: {
 		AddCart,
 		itemImage
