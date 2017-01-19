@@ -1,13 +1,23 @@
 <template>
     <div>
-        <h4>CART INVENTORY</h4>
+        <div class="top-bar clearfix">
+            <h4>CART INVENTORY</h4>
+
+            <div class="btn-group">
+
+                <button class="btn btn-primary" @click.prevent="toggleAddProduct">
+                    Add Product
+                </button>
+                
+            </div>
+        </div>
         <ul class="item-list waffle-parent-3">
 
-            <li class="new-product" @click.prevent="toggleAddProduct">
+            <!--<li class="new-product" @click.prevent="toggleAddProduct">
                 <div class="location-thumb">
                     <i class="fa fa-plus big-icon"></i>
                 </div>
-            </li>
+            </li>-->
 
 
             <li v-for="product in inventory">
@@ -19,7 +29,7 @@
                     :actions="['remove','edit','upload']">
                 </item-image>
                 <div class="txt-small">
-                    <span>{{product.name}}</span>
+                    <span>{{product.name}}</span><br>
                     <span><strong>Price Range:</strong>{{product.price_min}} - {{product.price_max}}</span>
                 </div>
             </li>
@@ -30,38 +40,45 @@
     </div>
 </template>
 <style lang="stylus">
-
+.top-bar 
+    h4 
+        float left
+    .btn-group
+            float right
 </style>
 <script>
-import { mapActions, mapState, mapGetters } from 'vuex';
-import { toggleAddProduct } from '../../vuex/actions';
-import AddProduct from './AddProduct.vue';
-import ItemImage from './itemImage.vue'
-export default{
-    data(){
-        return{
+    import {
+        mapActions,
+        mapState,
+        mapGetters
+    } from 'vuex';
+    import {
+        toggleAddProduct
+    } from '../../vuex/actions';
+    import AddProduct from './AddProduct.vue';
+    import ItemImage from './itemImage.vue'
+    export default {
+        data() {
+            return {}
+        },
+        created() {
+            console.log('yo from inventory >> ', this.inventory);
+        },
+        components: {
+            AddProduct,
+            ItemImage,
+        },
+        methods: {
+            ...mapActions([
+                'toggleAddProduct'
+            ])
+        },
+        computed: {
+            ...mapState([
+                'activeAddProduct',
+                'inventory'
+            ]),
+
         }
-    },
-    created() {
-        console.log('yo from inventory >> ', this.inventory);
-    },
-    components: {
-        AddProduct,
-        ItemImage,
-    },
-    methods: {
-		...mapActions([
-		  'toggleAddProduct'
-		])
-	},
-    computed: {
-        ...mapState([
-            'activeAddProduct',
-            'inventory'
-        ]),
-        // ...mapGetters({
-        //     inventory: 'activeInventory'
-        // })
     }
-}
 </script>

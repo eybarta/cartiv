@@ -264,11 +264,12 @@
         width 100%
 .component
     position fixed
-    width 100vw
+    /*width 100vw
     height 100vh
-    top 0
-    left 0
+    top -9vh
+    left -25vw*/
     background #202020
+    z-index 999999
 .resize-container
     position relative
     display inline-block

@@ -26,6 +26,9 @@ Meteor.methods({
             price_min: product.price_min,
             price_max: product.price_max,
             amount: product.amount,
+            tags: product.value,
+            category: product.category,
+            size: product.size,
             cost: product.cost,
             createdAt: new Date(),
             owner: this.userId            
