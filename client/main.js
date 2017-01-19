@@ -46,6 +46,7 @@ Meteor.startup(() => {
     mounted() {
         console.log("userid > ", Accounts.userId());
         this.$store.dispatch('initCartsState', Accounts.userId());
+        this.$store.dispatch('initInventoryState', Accounts.userId());
         
 
         // console.log("init carts >> ", carts);

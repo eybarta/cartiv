@@ -42,6 +42,9 @@ const mutations = {
         state.currentCart.thumb = image;
     },
     // inventory
+    UPDATE_INVENTORY_STATE(state, inventory) {
+        Vue.set(state, 'inventory', inventory)
+    },
     INIT_INVENTORY_STATE (state, inventory) {
         state.inventory = inventory;
     },
@@ -62,23 +65,6 @@ const getters = {
             cart = _.filter(state.carts, {_id: cartId});
         return !!cart.length ? cart[0] : null;
     },
-	activeInventory: (state, getters) => {
-		let cartId = state.route.params.cartId;
-			console.log('in inventory getter.. CART == ', cartId);
-console.log('inventory from state ... ', state.inventory);
-
-            setTimeout(() => {
-                console.log('22 inventory from state ... ', state.inventory);
-
-            },1000)
-            let inventory = _.filter(state.inventory, product => {
-                console.log("product > ", product);
-                return product.location_id == cartId
-            })
-		// let inventory = (!cartId) ? null : _.find(state.inventory, product => { return product.cart_id == cartId });
-		    console.log("inventory >> ", inventory);
-            return inventory
-	},
 }
 export const storeconfig = {
     mutations,

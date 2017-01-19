@@ -29,6 +29,7 @@ export default{
             var ref = this;
             setTimeout(() => {
                 let size = ref.$el.offsetWidth;
+                if (!!ref.$refs.toggler) {
                 let togSize = ref.$refs.toggler.offsetWidth;
                 console.log(ref.$refs.toggler);
                 console.log("size > ", size, " :: " , togSize);
@@ -38,6 +39,7 @@ export default{
                     borderRadius: size + "px",
                     'padding-right': pad + "px"
                 })
+                }
             }, 500)
 
         })

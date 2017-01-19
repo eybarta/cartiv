@@ -78,10 +78,6 @@ export default{
         submitProduct() {
             let product = _.clone(this.$data);
             console.log("1 save prod >> ", this.$data)
-            delete product['attach'];
-            if (!this.attach) {
-                delete product['location_id'];
-            }
             console.log("2 Save product > ", product);
             this.saveProduct(product);
         }
