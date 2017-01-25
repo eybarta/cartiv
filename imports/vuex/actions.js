@@ -4,6 +4,19 @@ import * as types from './mutation-types';
 import { Carts } from '/imports/api/collections/carts.js';
 import { Inventory } from '/imports/api/collections/inventory.js';
 
+
+// USER ID
+export const initUserId = ({ commit }) => {
+    Tracker.autorun((c) => {
+        let userId = Accounts.userId();
+        if (!!userId) {
+            commit('INIT_USER_ID', userId)
+            stop();
+        }
+    })
+
+}
+
 // CART ACTIONS
 export const toggleAddCart = ({ commit }) => {
   commit('TOGGLE_ADDCART');
@@ -47,34 +60,13 @@ export const updateCurrentCartThumb = ({ commit }, image) => {
 
 
 // INVENTORY ACTIONS
-export const initInventoryState = ({ commit }, _userId) => {
+export const initInventoryState = ({ commit }) => {
     Tracker.autorun((c) => {
         Meteor.subscribe('inventory');
         let inventory = Inventory.find({ }).fetch();
         commit('UPDATE_INVENTORY_STATE', inventory)
         console.log("carts from db > ", inventory);
-        
     })
-
-
-//   let inventory = [];
-// 	let findtimer = setInterval(() => {
-//         inventory = Inventory.find().fetch();
-// 		console.log("in timer > ", inventory.length);
-// 		if (inventory.length>0) {
-//             clearInterval(findtimer);
-// 			inventory = Inventory.find({ _userId }).fetch();
-// 			findtimer = null;
-// 			commit('INIT_INVENTORY_STATE', inventory);
-//         }
-//   },200)
-//     setTimeout(()=> {
-// 	    if (!!findtimer) {
-// 			clearInterval(findtimer);
-//         }
-// 	},3000)
-//     console.log("inventory from db > ", inventory);
-
 }
 export const toggleAddProduct = ({ commit }) => {
   commit('TOGGLE_ADD_PRODUCT');

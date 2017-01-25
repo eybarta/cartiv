@@ -15,7 +15,7 @@
 .vh-center
 	position relative
 	& > *:not(.uncenter):first-child
-		absolute 50% false false 50%
+		position absolute 50% false false 50%
 		transform translate(-50% ,-50%)
 .v-center
 	absolute 50% false false false
@@ -40,7 +40,9 @@
 	color orange
 .dark
 	color dark
-	
-	
+.gray
+	color gray
+.gray-lt
+	color lighten(gray, 70)
 .half-height
 	height 50vh

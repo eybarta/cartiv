@@ -1,11 +1,9 @@
 <template>
     <div>
         <div class="product-image thumb-big" @click="$refs.uploader.click()">
-            <i class="fa fa-image txt-big" v-if="!imagesrc"></i>
+            <i class="fa fa-upload gray-lt txt-big" v-if="!imagesrc"></i>
             <img  v-else ref="imagepreview" :src="finalimagesrc" alt="Item Image">
             <input ref="uploader" type="file" @change="uploadHandler($event)" hidden>
-
-
             <!--<div class="preview" v-if="!!image">-->
                 <!--<img ref="preview" :src="image">-->
 
@@ -261,9 +259,19 @@
         left 50%
         transform translate(-50%,-50%)
     img
-        width 100%
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        height: 100%;
 .component
-    position fixed
+    position absolute
+    top 0
+    left 0
+    bottom 0
+    right 0
     /*width 100vw
     height 100vh
     top -9vh

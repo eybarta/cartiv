@@ -2,18 +2,28 @@ import Vue from 'vue'
 import Vuex from 'vuex';
 import * as actions from './actions'
 
+
+const categories = {
+    clothing: ['shirt', 'pants', 'skirt', 'dress', 'jacket', 'coat'],
+    cosmetics: ['']
+}
+
 const state = {
     // CARTS
     activeAddCart: false,
     currentCart: {},
     carts: [],
-
+    userId:null,
+    
     // INVENTORY
     activeAddProduct: false,
     inventory: []
 }
 
 const mutations = {
+    INIT_USER_ID (state, userId) {
+        state.userId = userId;
+    },
     TOGGLE_ADDCART (state) {
         state.activeAddCart = !state.activeAddCart;
         state.currentCart = {};

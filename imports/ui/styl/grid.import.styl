@@ -34,4 +34,7 @@
 for num in (1..12)
 	.col-{num}
 		lost-column num/12
+	.parent-{num}
+		& > *
+			lost-waffle 1/num num
 	

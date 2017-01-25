@@ -1,3 +1,19 @@
+.fade-slide-enter-active, .fade-slide-leave-active
+  transition opacity 400ms ease, transform 400ms ease
+
+.fade-slide-enter, .fade-slide-leave-active
+  opacity 0
+  transform translate(-100%, -50%) !important
+
+.fade-slide-enter-to, .fade-slide-leave
+  opacity 1
+  transform translate(-50%,-50%) !important
+
+.fade-slide-leave-to
+  opacity 0
+  transform translate(100%, -50%) !important
+
+
 .fade-enter-active, .fade-leave-active {
   transition: opacity .5s
 }

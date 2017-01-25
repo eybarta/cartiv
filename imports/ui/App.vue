@@ -1,17 +1,29 @@
 <template>
-	<div class="app-wrap">
+	<div v-show="!!userId" class="app-wrap">
 		<app-menu></app-menu> 
 		<router-view></router-view>
 	</div>
 </template>
 <script>
+import { mapState, mapActions } from 'vuex'
 import AppMenu from './components/AppMenu.vue'
 export default {
 	created() {
 		console.log('app was created successfuly');
+		this.initUserId()
 	},
 	components: {
 		AppMenu
+	},
+	methods: {
+		...mapActions([
+			'initUserId'
+		])
+	},
+	computed: {
+		...mapState([
+			'userId'
+		])
 	}
 }
 </script>

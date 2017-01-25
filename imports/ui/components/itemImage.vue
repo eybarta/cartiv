@@ -62,7 +62,7 @@ export default{
             }).load(function() {
                 $(this).remove();
                 ref.loaded = true;
-                ref.$el.style = `background-image:url(${src}); background-size:cover;`
+                ref.$el.style = `background-image:url(${src}); background-size:108% 108%;`
             });
         },200)
     },

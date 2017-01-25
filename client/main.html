@@ -11,14 +11,16 @@
 
 <template name="cartapp">
   {{> account }}
+
   <app></app>
-  
 </template>
 
 
 <template name="account">
  {{#if unsigned}}
-  	{{> atForm }}
+    <div class="login-wrap">
+      {{> atForm }}
+    </div>
 {{else}}
 	<div class="profile">
 		<span class="user">{{ currentUser.profile.name }}</span><button class="logout-btn">LOG OUT</button>

@@ -28,9 +28,10 @@
                     :loader="false"
                     :actions="['remove','edit','upload']">
                 </item-image>
-                <div class="txt-small">
-                    <span>{{product.name}}</span><br>
-                    <span><strong>Price Range:</strong>{{product.price_min}} - {{product.price_max}}</span>
+                <div class="label txt-small">
+                    <span>{{product.name}}</span>
+            
+                    <span><strong>$ {{ product.price ?  product.price.min + ' - ' + product.price.max : 'N/A' }}</strong></span>
                 </div>
             </li>
         </ul>
@@ -39,12 +40,17 @@
 		</transition>
     </div>
 </template>
-<style lang="stylus">
+<style lang="stylus" scoped>
 .top-bar 
     h4 
         float left
     .btn-group
             float right
+.label
+    text-align center
+    span
+        display block
+        margin-top 5px
 </style>
 <script>
     import {
@@ -77,7 +83,7 @@
             ...mapState([
                 'activeAddProduct',
                 'inventory'
-            ]),
+            ])
 
         }
     }
