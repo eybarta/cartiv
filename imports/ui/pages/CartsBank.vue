@@ -81,7 +81,7 @@ export default {
 <style lang="stylus">
 @import "~node_modules/kouto-swiss/index";
 @import '~node_modules/rupture/rupture/index';
-@import '../styl/options.import';
+@import '../styl/settings';
 .flip-list-move
 	transition transform 1s
 

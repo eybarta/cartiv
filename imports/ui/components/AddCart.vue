@@ -115,7 +115,7 @@ export default {
 <style lang="stylus">
 @import '~node_modules/rupture/rupture/index';
 @import '~node_modules/kouto-swiss/index';
-@import '../styl/options.import';
+@import '../styl/settings';
 .backdrop
 	h3
 		color #00bcd4

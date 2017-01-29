@@ -1,5 +1,25 @@
 @import './variables.import.styl'
 // OPTIONS
+
+// MARGINS
+for size,value in margin
+	.mt-{size}
+		margin-top value
+	.mb-{size}
+		margin-bottom value
+	.ml-{size}
+		margin-left value
+	.mr-{size}
+		margin-right value
+	.pt-{size}
+		padding-top value
+	.pb-{size}
+		padding-bottom value
+	.pl-{size}
+		padding-left value
+	.pr-{size}
+		padding-right value
+
 .clearfix:after
 	content ''
 	display block

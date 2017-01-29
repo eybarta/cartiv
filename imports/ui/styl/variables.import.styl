@@ -8,3 +8,65 @@ blue = #b0fcff
 darkblue = #3c6c79
 gray = #202020
 green = #86d040
+
+
+// breakpoints
+breaks = {
+	min: 768px,
+	small: 1024px,
+	med: 1200px,
+	big: 1600px,
+	max: 1880px
+}
+
+// margins
+margin = {
+	min:5px,
+	small:10px,
+	med:20px,
+	base:30px,
+	big:40px,
+	bigger:50px,
+	max:60px
+}
+// mixins
+fontsizer(min = 13px, max = 24px, rangemin = breaks.min, rangemax = breaks.max)
+	font-size responsive min max
+	font-range rangemin rangemax
+
+
+$inline-mid
+	& > *:not(.not-me)
+		display inline-block
+		vertical-align middle
+	&:before
+		display inline-block
+		vertical-align middle
+		content ''
+		height 100%
+
+$clearfix
+	display block
+	&:after
+		content ''
+		display table
+		visibility hidden
+		height 0
+		clear both
+
+$absolute-mid
+	position relative
+	& > *:first-child
+		position absolute
+		top 50%
+		left 50%
+		transform translate(-50%,-50%)
+
+$zero
+	padding 0
+	margin 0
+
+$sharpen
+	-webkit-font-smoothing antialiased
+	text-shadow 1px 1px 1px rgba(0,0,0,0.18)
+	-moz-osx-font-smoothing grayscale

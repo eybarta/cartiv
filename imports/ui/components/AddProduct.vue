@@ -7,7 +7,7 @@
                 <!--<image-uploader  class="image-loader" v-model="image"></image-uploader>-->
                 <div class="steps vh-center">
                     <transition name="fade-slide" appear mode="out-in">
-                        <div v-if="steps.active===1" class="step step-1" key="1">
+                        <!--<div v-if="steps.active===1" class="step step-1" key="1">
                             <h4><label for="type">What type of product?</label></h4>
                             <input v-model="type" type="text" placeholder="Shirt, Pants, Smartphone, Dead sea, etc..">
 
@@ -30,7 +30,7 @@
                             <input v-model="name" type="text" placeholder="Type the product name..">
 
                             <h4><label for="pricerange">Give me the price range</label></h4>
-                            <input v-model="pricerange" type="text" placeholder="$min - max">
+                            <input v-model="pricerange" type="text" placeholder="$min - max or $fixed">
                         </div>
                         <div v-if="steps.active===3" class="step step-3" key="3">
                             <h4><label for="amount">How many you got?</label></h4>
@@ -42,6 +42,58 @@
                          <div v-if="steps.active===4" class="step step-4" key="4">
                             <h4><label for="image">Upload a picture of the product</label></h4>
                             <image-uploader id="image" class="image-loader" size="biggest" v-model="image"></image-uploader>
+                        </div>-->
+                         <div v-if="steps.active===1" class="step step-1" key="1">
+                            <h4><label for="type">Fill in the relevant info</label></h4>
+                            <ul class="form-list mt-big">
+                                <li>
+                                    <h5>BRAND</h5>
+                                    <div class="form-control">
+                                        <multiselect
+                                            placeholder="Select or type"
+                                            :taggable="true"
+                                            v-model="brand.value"
+                                            :options="brand.options"
+                                            @update="updateBrand"
+                                            @tag="addTag"
+                                            @open="selectOpened(brand)"
+                                            >
+                                        </multiselect>
+                                    </div>
+                                </li>
+                                <li>
+                                    <h5>SIZE</h5>
+                                    <div class="form-control">
+                                        <multiselect
+                                            placeholder="Select or type"
+                                            :taggable="true"
+                                            v-model="size.value"
+                                            :selected="size.selected"
+                                            :options="size.options"
+                                            @update="updateSize"
+                                            @tag="addTag"
+                                            @open="selectOpened(size)">
+                                        </multiselect>
+                                    </div>
+                                </li>
+                                <li>
+                                    <h5>PRICE</h5>
+                                    <div class="form-control">
+                                        <div class="input-wrap">
+                                            <i class="fa fa-dollar"></i>
+                                            <input type="text">
+                                        </div>
+                                    </div>
+                                </li>
+                                <li></li>
+                            </ul>
+                        </div>
+                        <div v-if="steps.active===2" class="step step-2" key="2">
+                            <h4><label for="name">Does it have a name?</label></h4>
+                            <input v-model="name" type="text" placeholder="Type the product name..">
+
+                            <h4><label for="pricerange">Give me the price range</label></h4>
+                            <input v-model="pricerange" type="text" placeholder="$min - max or $fixed">
                         </div>
                     </transition>
                     <div class="nav-btns">
@@ -121,12 +173,25 @@ export default{
             image:'',
             pricerange: '',
             amount:'',
+
+            // MULTISELECT
+            brand: {
+                options: ['Calvin Klein'],
+                value: null
+            },
+            size: {
+                options: ['Large', 'Medium', 'Small'],
+                value:null
+            },
+            activeProp: null
+
         }
     },
     created() {
         // this.$set(this, 'location_id', this.$route.params.cartId);
         // this.$set(this, '_userId', Accounts.userId());
         // console.log('created from inventory >> ');
+        l(1,2,3);
     },
     mounted() {
         this.bindKeys();
@@ -136,24 +201,45 @@ export default{
         Multiselect
     },
     methods: {
+        updateBrand() {
+            console.log("update brand >> ", this.brand.selected);
+        },
+        updateSize() {
+            console.log("update size >> ", this.size.selected);
+        },
+        addTag (newTag) {
+            const tag = newTag;
+            const active = this.activeProp;
+            if (!!active) {
+                l('active >> ', active)
+                active.options.push(tag)
+                active.value = [tag]
+            }
+        },
+        searchHandler(searchQuery,id) {
+            l('searchndler >> ', searchQuery, id)
+        },
+        selectOpened(active) {
+            this.activeProp = active;
+        },
         bindKeys() {
-            $(document).on('keyup', e =>{
-                switch (e.keyCode) {
-                    case 13:
-                        if (this.notLastStep || this.readyForSubmit)
-                        this.submitNextClickHandler()
-                        break;
-                    case 39:
-                        if (this.notLastStep)
-                        this.nextStep();
-                        break;
-                    case 37:
-                        if (this.notFirstStep)
-                        this.prevStep();
-                    default:
-                        break;
-                }
-            })
+            // $(document).on('keyup', e =>{
+            //     switch (e.keyCode) {
+            //         case 13:
+            //             if (this.notLastStep || this.readyForSubmit)
+            //             this.submitNextClickHandler()
+            //             break;
+            //         case 39:
+            //             if (this.notLastStep)
+            //             this.nextStep();
+            //             break;
+            //         case 37:
+            //             if (this.notFirstStep)
+            //             this.prevStep();
+            //         default:
+            //             break;
+            //     }
+            // })
         },
         ...mapActions([
             'toggleAddProduct',
@@ -164,14 +250,6 @@ export default{
             if (res.errcode == 0) {
                 this.src = 'http://img1.vued.vanthink.cn/vued751d13a9cb5376b89cb6719e86f591f3.png';
             }   
-        },
-        addTag (newTag) {
-            const tag = {
-                name: newTag,
-                code: newTag.substring(0, 2) + Math.floor((Math.random() * 10000000))
-            }
-            this.options.push(tag)
-            this.value.push(tag)
         },
         submitProduct() {
             let product = _.clone(this.$data);
@@ -207,7 +285,7 @@ export default{
 </script>
 <style lang="stylus">
 @import '../styl/variables.import';
-@import '../styl/options.import';
+@import '../styl/settings';
 .add-product
     position fixed
     top 0
@@ -216,6 +294,7 @@ export default{
     bottom 0
     background rgba(gray, 0.93)
     z-index 999
+    
     .fa-close
         top 80px
         right 80px
@@ -238,6 +317,8 @@ export default{
         backface-visibility hidden
         perspective 1px
         overflow hidden
+        
+
         .steps
             height 100%
             .nav-btns
@@ -296,16 +377,16 @@ export default{
                     &:first-child
                         margin-top 0
                 h5
-                    text-align center
+                    /*text-align center*/
                 input, textarea
-                    margin-top 10%
+                    /*margin-top 10%
                     width 100%
                     border 0
                     border-bottom 1px solid lighten(gray, 60)
                     height 40px
                     font-size 24px
                     color lighten(gray,15)
-                    text-align center
+                    text-align center*/
                     &:first-letter
                         text-transform capitalize
                 textarea
@@ -386,4 +467,43 @@ export default{
                 text-align center
             .btn
                 margin-right 30%
+
+.form-list
+    & > li
+        height 60px
+        h5
+            display inline-block
+            vertical-align middle
+            margin 0
+            text-align right
+            padding-right 2%
+            width 20%
+            font-weight bold
+            font-size 16px
+        .form-control
+            @extend $inline-mid
+            display inline-block
+            vertical-align middle
+            border-left 1px solid gray
+            padding-left 5%
+            width 75%
+            height 100%
+            position relative
+            .input-wrap
+                @extend $clearfix
+                border-bottom 1px solid lighten(gray, 70)
+                width 100%
+            i.fa
+                display inline-block
+                float left
+            .multiselect__tags, input
+                border none
+                border-radius 0
+                overflow hidden
+                display block
+            .multiselect__input
+                border none
+                height auto
+                font-size 16px
+                text-transform capitalize
 </style>

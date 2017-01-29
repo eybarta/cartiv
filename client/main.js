@@ -59,3 +59,9 @@ Meteor.startup(() => {
     }
   }).$mount('app');
 });
+
+
+// FOR DEBUGGING
+l = (...args) => {
+  console.log("DEBUG|| ", args);
+}
