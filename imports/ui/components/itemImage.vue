@@ -1,7 +1,7 @@
 <template>
     <div v-show="!!defaultView || !!loaded" :class="[thumbnailClass, preloaderClass]" @click="actionCallback">
         <i v-if="!src || (!!defaultView && !loaded)" :class="defaultView"></i>
-        <item-settings v-if="!!actions.length" :actions="actions"></item-settings>
+        <!--<item-settings v-if="!!actions.length" :actions="actions"></item-settings>-->
     </div>
 </template>
 

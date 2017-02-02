@@ -3,10 +3,12 @@ import Vuex from 'vuex';
 import * as actions from './actions'
 
 
-const categories = {
-    clothing: ['shirt', 'pants', 'skirt', 'dress', 'jacket', 'coat'],
-    cosmetics: ['']
-}
+// const productOptions = {
+//     type: [],
+//     category: [],
+//     brand: [],
+//     size: ['Small', 'Medium', 'Large']
+// }
 
 const state = {
     // CARTS
@@ -17,7 +19,8 @@ const state = {
     
     // INVENTORY
     activeAddProduct: false,
-    inventory: []
+    inventory: [],
+    productOptions: null
 }
 
 const mutations = {
@@ -63,6 +66,14 @@ const mutations = {
     },
     SAVE_PRODUCT (state, product) {
         state.inventory.push(product);
+    },
+
+    // DEFAULT PRODUCT OPTIONS (tags basically)
+    INIT_PRODUCT_OPTIONS (state, options) {
+        state.productOptions = options;
+    },
+    UPDATE_PRODUCT_OPTIONS (state, option) {
+        state.productOptions[option.name].push(option.tag);
     }
 }
 

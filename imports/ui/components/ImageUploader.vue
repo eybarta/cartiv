@@ -2,7 +2,7 @@
     <div>
         <div class="product-image thumb-big" @click="$refs.uploader.click()">
             <i class="fa fa-upload gray-lt txt-big" v-if="!imagesrc"></i>
-            <img  v-else ref="imagepreview" :src="finalimagesrc" alt="Item Image">
+            <img  v-if="!!imagesrc || !!finalimagesrc" ref="imagepreview" :src="finalimagesrc" alt="Item Image">
             <input ref="uploader" type="file" @change="uploadHandler($event)" hidden>
             <!--<div class="preview" v-if="!!image">-->
                 <!--<img ref="preview" :src="image">-->
@@ -31,6 +31,7 @@
 </template>
 <script>
     export default{
+        props: ['image'],
         data(){
             return{
                 orig_src: null,
@@ -42,7 +43,7 @@
                 max_height: 400,
                 resize_canvas:null,
                 imagesrc: '',
-                finalimagesrc: ''
+                finalimagesrc: null,
             }
         },
         components:{
@@ -50,10 +51,11 @@
 
         mounted() {
             console.log('my image elemetn > ', this.$refs.image);
-           
+           if (!!this.image) this.finalimagesrc = this.image;
         },
         methods: {
             uploadHandler(e) {
+                this.finalimagesrc = null;
                 let ref = this;
                 let files = this.$refs.uploader.files;
                 let reader = new FileReader();

@@ -21,12 +21,15 @@ const router =  new VueRouter({
   routes
 })
 
+// router.beforeEach((to, from, next) => {
+//   console.log("ROUTER BEFORE .. ", to, " :: ", from, " :: ", next);
+// });
 sync(store, router);
 // Libs
 
 _ = lodash;
 
-import { initCartsState, initInventoryState } from '/imports/vuex/actions';
+import { initCartsState, initInventoryState, initProductOptions } from '/imports/vuex/actions';
 import App from '/imports/ui/App.vue';
 
 Vue.config.devtools = true;
@@ -47,6 +50,7 @@ Meteor.startup(() => {
         console.log("userid > ", Accounts.userId());
         this.$store.dispatch('initCartsState', Accounts.userId());
         this.$store.dispatch('initInventoryState', Accounts.userId());
+        this.$store.dispatch('initProductOptions', Accounts.userId());
         
 
         // console.log("init carts >> ", carts);

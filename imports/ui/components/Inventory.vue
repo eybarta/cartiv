@@ -30,8 +30,7 @@
                 </item-image>
                 <div class="label txt-small">
                     <span>{{product.name}}</span>
-            
-                    <span><strong>$ {{ product.price ?  product.price.min + ' - ' + product.price.max : 'N/A' }}</strong></span>
+                    <span><strong>$ {{ product.priceMin }} {{ !!product.priceMax ? ' - ' + product.priceMax : '' }}</strong></span>
                 </div>
             </li>
         </ul>

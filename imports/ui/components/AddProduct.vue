@@ -3,224 +3,173 @@
         <i @click.prevent="toggleAddProduct" class="fa fa-close btn r-corner"></i>
         <div class="circle-wrap">
             <div class="form-wrap">
-                <!--<h4>ADD PRODUCT</h4>-->
-                <!--<image-uploader  class="image-loader" v-model="image"></image-uploader>-->
                 <div class="steps vh-center">
                     <transition name="fade-slide" appear mode="out-in">
-                        <!--<div v-if="steps.active===1" class="step step-1" key="1">
-                            <h4><label for="type">What type of product?</label></h4>
-                            <input v-model="type" type="text" placeholder="Shirt, Pants, Smartphone, Dead sea, etc..">
-
-                            <div class="icon-grid parent-4">
-                                <i class="lnr lnr-shirt"></i>
-                                <i class="lnr lnr-camera-video"></i>
-                                <i class="lnr lnr-camera"></i>
-                                <i class="lnr lnr-smartphone"></i>
-                                <i class="lnr lnr-laptop"></i>
-                                <i class="lnr lnr-paw"></i>
-                                <i class="lnr lnr-diamond"></i>
-                                <i class="lnr lnr-coffee-cup"></i>
-                                <i class="lnr lnr-music-note"></i>
-                                <i class="lnr lnr-picture"></i>
-                                <i class="lnr lnr-graduation-hat"></i>
+                            <div v-if="steps.active===1" class="step step-1" key="1">
+                                <h4><label for="image">Upload a picture of the product</label></h4>
+                                    <image-uploader id="image"  :image="image" class="image-loader" size="biggest" v-model="image"></image-uploader>
+                                <div v-if="!!image" class="palette">
+                                    <h4>Choose color</h4>
+                                    <a href="#p" v-for="color in colors" @click.prevent="giveColor(color)" :style="'background:rgb('+color+')'"></a>
+                                    <input class="color-name" v-model="color">
+                                </div>
                             </div>
-                        </div>
-                        <div v-if="steps.active===2" class="step step-2" key="2">
-                            <h4><label for="name">Does it have a name?</label></h4>
-                            <input v-model="name" type="text" placeholder="Type the product name..">
-
-                            <h4><label for="pricerange">Give me the price range</label></h4>
-                            <input v-model="pricerange" type="text" placeholder="$min - max or $fixed">
-                        </div>
-                        <div v-if="steps.active===3" class="step step-3" key="3">
-                            <h4><label for="amount">How many you got?</label></h4>
-                            <input v-model="amount" type="text" placeholder="Amount of items...">
-                            <h4><label for="description">Please describe your product</label></h4>
-                            <textarea v-model="description" name="" id="description"></textarea>
-                            <h5><strong>Please use this format:</strong> size: large, color: green, brand: tommy hillfiger, etc...</h5>
-                        </div>
-                         <div v-if="steps.active===4" class="step step-4" key="4">
-                            <h4><label for="image">Upload a picture of the product</label></h4>
-                            <image-uploader id="image" class="image-loader" size="biggest" v-model="image"></image-uploader>
-                        </div>-->
-                         <div v-if="steps.active===1" class="step step-1" key="1">
-                            <h4><label for="type">Fill in the relevant info</label></h4>
-                            <ul class="form-list mt-big">
-                                <li>
-                                    <h5>BRAND</h5>
-                                    <div class="form-control">
-                                        <multiselect
-                                            placeholder="Select or type"
-                                            :taggable="true"
-                                            v-model="brand.value"
-                                            :options="brand.options"
-                                            @update="updateBrand"
-                                            @tag="addTag"
-                                            @open="selectOpened(brand)"
-                                            >
-                                        </multiselect>
-                                    </div>
-                                </li>
-                                <li>
-                                    <h5>SIZE</h5>
-                                    <div class="form-control">
-                                        <multiselect
-                                            placeholder="Select or type"
-                                            :taggable="true"
-                                            v-model="size.value"
-                                            :selected="size.selected"
-                                            :options="size.options"
-                                            @update="updateSize"
-                                            @tag="addTag"
-                                            @open="selectOpened(size)">
-                                        </multiselect>
-                                    </div>
-                                </li>
-                                <li>
-                                    <h5>PRICE</h5>
-                                    <div class="form-control">
-                                        <div class="input-wrap">
-                                            <i class="fa fa-dollar"></i>
-                                            <input type="text">
+                            <div v-if="steps.active===2" class="step step-2" key="2">
+                                <h4><label for="type">Fill in the relevant info</label></h4>
+                                <ul class="form-list mt-big">
+                                    <li>
+                                        <h5>TYPE</h5>
+                                        <i class="fa fa-bookmark"></i>
+                                        <div class="form-control">
+                                            <select-wrap v-model="type" :value="type" name="type" :options="productOptions.type" tabindex="1"></select-wrap>
                                         </div>
-                                    </div>
-                                </li>
-                                <li></li>
-                            </ul>
-                        </div>
-                        <div v-if="steps.active===2" class="step step-2" key="2">
-                            <h4><label for="name">Does it have a name?</label></h4>
-                            <input v-model="name" type="text" placeholder="Type the product name..">
-
-                            <h4><label for="pricerange">Give me the price range</label></h4>
-                            <input v-model="pricerange" type="text" placeholder="$min - max or $fixed">
-                        </div>
+                                    </li>
+                                    <li>
+                                        <h5>CATEGORY</h5>
+                                        <i class="fa fa-sort-amount-asc"></i>
+                                        <div class="form-control">
+                                            <select-wrap v-model="category" :value="category" name="category" :options="productOptions.category" tabindex="2"></select-wrap>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <h5>BRAND</h5>
+                                        <i class="fa fa-tag"></i>
+                                        <div class="form-control">
+                                            <select-wrap v-model="brand" :value="brand" name="brand" :options="productOptions.brand" tabindex="3"></select-wrap>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <h5>SIZE</h5>
+                                        <i class="fa fa-expand"></i>
+                                        <div class="form-control">
+                                            <select-wrap v-model="size" :value="size" name="size" :options="productOptions.size"  tabindex="4"></select-wrap>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <h5>PRICE</h5>
+                                        <i class="fa fa-dollar"></i>
+                                        <div class="form-control">
+                                            <div class="input-wrap">
+                                                <input v-model="price" type="text" placeholder="MIN - MAX or fixed"  tabindex="5">
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <h5>COST</h5>
+                                        <i class="fa fa-dollar"></i>
+                                        <div class="form-control">
+                                            <div class="input-wrap">
+                                                <input v-model="cost" type="text" placeholder="What's the cost to you ?"  tabindex="6">
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <h5>AMOUNT</h5>
+                                        <i class="fa fa-cart-plus"></i>
+                                        <div class="form-control">
+                                            <div class="input-wrap">
+                                                <input v-model="amount" type="text" placeholder="How many you got ?"  tabindex="7">
+                                            </div>
+                                        </div>
+                                        
+                                    </li>
+                                </ul>
+                            </div>
                     </transition>
                     <div class="nav-btns">
                         <button v-if="notFirstStep" @click="prevStep" class="nav prev"></button>
                         <button v-if="notLastStep || readyForSubmit" @click="submitNextClickHandler" class="nav" :class="[readyForSubmit ? 'submit' : 'next']"></button>
                     </div>
                 </div>
-            <!--    <div class="col-8">
-                    <ul class="form">
-                        <li>
-                            <i class="fa fa-pencil"></i>
-                            <input id="productName" v-model="name" type="text" required>
-                            <label for="productName">Product name</label>
-                        </li>
-                        <li>
-                            <i class="fa fa-filter"></i>
-                             <input id="category" v-model="category" type="text" required>
-                            <label for="category">Category</label>
-                        </li>
-                        <li>
-                            <i class="fa fa-dollar"></i>
-                            <input id="priceMin" v-model="price_min" type="number" required>
-                            <label for="priceMin">Minimum Price</label>
-                            
-                        </li>
-                        <li>
-                            <i class="fa fa-dollar"></i>
-                            <input id="priceMax" v-model="price_max" type="number" required>
-                            <label for="priceMax">Maximum Price</label>
-                        </li>
-
-                        <li>
-                            <i class="fa fa-expand"></i>
-                            <input id="size" v-model="size" type="text" required>
-                            <label for="size">Size</label>
-                        </li>
-                        <li>
-                            <i class="fa fa-ellipsis-v"></i>
-                            <input id="amount" v-model="amount" type="number" required>
-                            <label for="amount">Amount of items</label>
-                        </li>
-                        <li>
-                            <i class="fa fa-dollar"></i>
-                            <input id="cost" v-model="cost" type="number" required>
-                            <label for="cost">Cost of items</label>
-                        </li>
-                        <li>
-                                <i class="fa fa-tags"></i>
-                                <multiselect v-model="value" tag-placeholder="Add this as new tag" placeholder="Search or add a tag" label="name" track-by="code" :options="options" :multiple="true" :taggable="true" @tag="addTag"></multiselect>
-                        </li>
-                        <li>
-                            <input type="checkbox" id="checkbox" v-model="attach">
-                            <label for="checkbox">Attach to current cart?</label>
-                        </li>
-                    </ul>
-                    <button class="btn btn-success right" @click="submitProduct">Save</button>
-                </div>
-                -->
             </div>
         </div>
     </div>
 </template>
 <script>
-import { mapActions } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 import ImageUploader from './ImageUploader.vue'
+import SelectWrap from './SelectWrap.vue'
 import Multiselect from 'vue-multiselect'
+import * as Vibrant from 'node-vibrant'
+
+import { color_data } from './plugins/color-data-set.js'
+import { get_dataset, ColorClassifier } from './plugins/color-classifier.js'
 export default{
     data(){
         return{
+            // ui management
             steps: {
                 active: 1,
-                amount: 4
+                amount: 2
             },
-            type: '',
+            // currently not in use
             name:'',
             description:'',
+            // base64 image result
             image:'',
-            pricerange: '',
-            amount:'',
-
-            // MULTISELECT
-            brand: {
-                options: ['Calvin Klein'],
-                value: null
-            },
-            size: {
-                options: ['Large', 'Medium', 'Small'],
-                value:null
-            },
-            activeProp: null
-
+            // Manage color selection
+            colors:[],
+            color:'',
+            classifier:null,
+            // Product properties
+            price: null,
+            amount:null,
+            cost:'',
+            // from selectors (<select-wrap>)
+            type: '',
+            category: '',
+            brand: '',
+            size: '',
+        }
+    },
+    watch: {
+        'image'() {
+            console.log("this happends once");
+            this.colors = [];
+            Vibrant.from(this.image).getPalette((err, palette) => {
+                console.log("this happends 3 times")
+                for (color in palette) {
+                    if (this.colors.length<5 && !!palette[color].rgb)
+                    this.colors.push(palette[color].rgb.join(','))
+                }
+            })
         }
     },
     created() {
-        // this.$set(this, 'location_id', this.$route.params.cartId);
-        // this.$set(this, '_userId', Accounts.userId());
-        // console.log('created from inventory >> ');
-        l(1,2,3);
+        // this.initProductOptions();
     },
     mounted() {
+        var ref = this;
         this.bindKeys();
+        this.setColorClassifier();
+       
+
     },
     components: {
         ImageUploader,
-        Multiselect
+        Multiselect,
+        SelectWrap
     },
     methods: {
-        updateBrand() {
-            console.log("update brand >> ", this.brand.selected);
+        giveColor(rgb) {
+            this.color = this.classifier.classify(rgb);
         },
-        updateSize() {
-            console.log("update size >> ", this.size.selected);
+        addTag (tag, id) {
+            this[id].options.push(tag)
+            this[id].value = [tag]
+
+            // TODO :: ADD TO STORE STATE & COLLECTION
         },
-        addTag (newTag) {
-            const tag = newTag;
-            const active = this.activeProp;
-            if (!!active) {
-                l('active >> ', active)
-                active.options.push(tag)
-                active.value = [tag]
-            }
+        removeTag(tag, id) {
+            // TODO :: REMOVE FROM STORE STATE & COLLECTION
+            console.log('remove > ', tag, id);
         },
-        searchHandler(searchQuery,id) {
-            l('searchndler >> ', searchQuery, id)
-        },
-        selectOpened(active) {
-            this.activeProp = active;
+        setColorClassifier() {
+            // let ref = this;
+            this.classifier = new ColorClassifier();
+            get_dataset(color_data, (data) => {
+                this.classifier.learn(data);
+            })
         },
         bindKeys() {
             // $(document).on('keyup', e =>{
@@ -245,17 +194,37 @@ export default{
             'toggleAddProduct',
             'saveProduct'
         ]),
-        imageuploaded(res) {
-            console.log(">> ", res);
-            if (res.errcode == 0) {
-                this.src = 'http://img1.vued.vanthink.cn/vued751d13a9cb5376b89cb6719e86f591f3.png';
-            }   
+        parsePrice() {
+            let price = this.price;
+            console.log("PARSE PRICE >> ", price);
+            if (/-/g.test(price)) {
+                let price_split = price.split('-');
+                l("price split",price_split)
+                return [parseInt(price_split[0]),parseInt(price_split[1])]
+            }
+            else {
+                return [parseInt(price), null];
+            }
         },
         submitProduct() {
-            let product = _.clone(this.$data);
-            // console.log("1 save prod >> ", this.$data)
-            console.log("2 Save product > ", product);
-            this.saveProduct(product);
+            console.log(
+                'submit product'
+            );
+            let price = this.parsePrice();
+            console.log('submit price >> ', price);
+                product =  {
+                    type: !!this.type ? this.type : null,
+                    brand: !!this.brand ? this.brand : null,
+                    category: !!this.category ? this.category : null,
+                    size: !!this.size ? this.size : null,
+                    priceMin: price[0],
+                    priceMax: price[1],
+                    amount: parseInt(this.amount),
+                    image: this.image,                    
+                    cost: !!this.cost ? parseInt(this.cost) : null
+                }
+            console.log("2 Save product > ", _.pickBy(product));
+            this.saveProduct(_.pickBy(product));
         },
         nextStep() {
             this.steps.active++;
@@ -264,12 +233,14 @@ export default{
             this.steps.active--;
         },
         submitNextClickHandler() {
-
             this.readyForSubmit ? this.submitProduct() : this.nextStep()
         }
         
     },
     computed: {
+        ...mapState([
+            'productOptions'
+        ]),
         notFirstStep() {
             return this.steps.active > 1
         },
@@ -378,6 +349,7 @@ export default{
                         margin-top 0
                 h5
                     /*text-align center*/
+                   
                 input, textarea
                     /*margin-top 10%
                     width 100%
@@ -480,6 +452,10 @@ export default{
             width 20%
             font-weight bold
             font-size 16px
+        .fa
+            width 20px
+            text-align right
+            padding-right 10px
         .form-control
             @extend $inline-mid
             display inline-block
@@ -493,6 +469,11 @@ export default{
                 @extend $clearfix
                 border-bottom 1px solid lighten(gray, 70)
                 width 100%
+                display inline-block
+                input
+                    font-size 16px
+                    width 90%
+                    padding 0 4% 1%
             i.fa
                 display inline-block
                 float left
@@ -501,9 +482,32 @@ export default{
                 border-radius 0
                 overflow hidden
                 display block
+                &.multiselect__tags
+                    border-bottom 1px solid lighten(gray, 70)
             .multiselect__input
                 border none
                 height auto
                 font-size 16px
-                text-transform capitalize
+                /*text-transform capitalize*/
+.palette
+    padding-top 30px
+    text-align center
+    h4
+        padding-bottom 20px
+    a
+        display inline-block
+        width 40px
+        height 40px
+        border 1px solid gray
+        border-radius 50%
+        margin 0 10px
+    .color-name
+        display block
+        width 50%
+        margin 30px auto
+        border 0
+        border-bottom 1px solid gray
+        padding 5px
+        text-align center
+        font-size 20px
 </style>

@@ -32,9 +32,9 @@ http
 erasaur:meteor-lodash
 session
 promise
-ostrio:files
 stylus
 akryum:vue-component
 akryum:vue-stylus
 babel-runtime
 blaze-html-templates
+meteorhacks:fast-render

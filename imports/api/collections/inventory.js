@@ -5,53 +5,44 @@ import { check } from 'meteor/check'
  _ = lodash;
 export const Inventory = new Mongo.Collection('inventory');
 
+export const ProductOptions = new Mongo.Collection('product_options')
+
+// initialize Product Options defaults
+ProductOptions.upsert({_id: "defaultOptionsXy3e3"}, { 
+        _id: "defaultOptionsXy3e3",
+        type: [],
+        category: [],
+        brand: [],
+        size: ['Small', 'Medium', 'Large']
+    }
+)
+
+
 if (Meteor.isServer) {
     Meteor.publish('inventory', function inventoryPublication() {
         return Inventory.find();
+    })
+    Meteor.publish('product_options', function productOptionsPublication() {
+        return ProductOptions.find();
     })
 }
 
 Meteor.methods({
     'inventory.insert'(product) {
-        check(product.name, String);
-        check(product.pricerange, String);
+        // check(product.type.value, String);
+        check(product.priceMin, Number);
+        check(product.amount, Number)
 
         if (! this.userId) {
             throw new Meteor.Error('not-authorized')
         }
 
 
-        /*
-            // Lets map the product..
-            product.pricerange to { price: {min,max}}
-            product.description to {key: values}
-        */
-        let product_to_insert = {};
-        
-        let desc = _.trim(product.description),
-            ds = desc.split(','),
-            propsFromDescription = {};
-
-            _.forEach(ds, prop => {
-                let p = prop.split(':')
-                propsFromDescription[_.trim(p[0])] = _.trim(p[1])
-            })
-
-        let price = _.trim(product.pricerange),
-            p = price.split('-'),
-            priceObj = {
-                min: p[0],
-                max: p[1]
-            }
-
-            product_to_insert = _.merge({
-                name: product.name,
-                image: product.image,
-                price: priceObj,
-                amount: product.amount,
-                createdAt: new Date(),
-                owner: this.userId   
-            }, propsFromDescription);
+        console.log('PRODUCT TO INSERT >>> ', product);
+        let product_to_insert = _.merge({
+            createdAt: new Date(),
+            owner: this.userId   
+        }, product);
 
         Inventory.insert(product_to_insert)
     },
@@ -59,5 +50,19 @@ Meteor.methods({
         check(productId, String);
 
         Inventory.remove(productId);
+    },
+
+    // PRODUCT OPTIONS DEFAULTS
+    'product_options.update'(option){
+        let prop = option.name;
+        ProductOptions.update( 
+            { _id: "defaultOptionsXy3e3" },
+            { 
+                $push: {[prop]: option.tag}
+            }
+
+        
+        )
     }
+    
 })

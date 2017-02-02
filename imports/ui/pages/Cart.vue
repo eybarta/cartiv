@@ -2,7 +2,7 @@
     <div class="page-wrap">
         <div class="container">
             <div class="cart-info col-4">
-                <item-image :src="!!cart ? cart.thumb : null" default-view="fa fa-building-o" size="med" :loader="false" :actions="['remove','edit','upload']"></item-image>
+                <item-image :src="!!cart ? cart.thumb : null" default-view="fa fa-building-o" size="med" :loader="false"></item-image>
                 <span class="location-name txt-small ">
                     <i class="fa fa-location-arrow"></i>
                     <strong>{{!!cart ? cart.location : ''}}</strong>

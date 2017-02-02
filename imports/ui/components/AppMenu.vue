@@ -9,6 +9,12 @@ export default {
 	created() {
 		console.log('App Menu was created successfuly');
 	},
+	mounted() {
+		console.log('App Menu was mounted successfuly');
+	},
+	updated() {
+		console.log('App menu udpated');
+	},
 	components: {
 	}
 }

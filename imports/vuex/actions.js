@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor'
 import { Tracker }from 'meteor/tracker'
 import * as types from './mutation-types';
 import { Carts } from '/imports/api/collections/carts.js';
-import { Inventory } from '/imports/api/collections/inventory.js';
+import { Inventory, ProductOptions } from '/imports/api/collections/inventory.js';
 
 
 // USER ID
@@ -34,13 +34,6 @@ export const saveCart =  async ({dispatch,commit}, cart) => {
 	    commit('TOGGLE_ADDCART');
          console.log('CART SAVED TO STORE >> ', cart);
 }
-
-export const getCartById = ({ commit, state }, cartId) => {
-	Carts.insert(cart);
-	commit('SAVE_CART', cart);
-	commit('CART_BY_ID');
-	console.log('save cart to db');
-}
 export const initCartsState = ({ commit }, _userId) => {
     Tracker.autorun((c) => {
         Meteor.subscribe('carts');
@@ -65,7 +58,7 @@ export const initInventoryState = ({ commit }) => {
         Meteor.subscribe('inventory');
         let inventory = Inventory.find({ }).fetch();
         commit('UPDATE_INVENTORY_STATE', inventory)
-        console.log("carts from db > ", inventory);
+        console.log("updated inventory from db > ", inventory);
     })
 }
 export const toggleAddProduct = ({ commit }) => {
@@ -82,5 +75,22 @@ export const insertProductToDb = async ({ commit }, product) => {
 export const saveProduct = async ({ commit, dispatch }, product) => {
     commit('SAVE_PRODUCT', product, await dispatch('insertProductToDb', product));
 	commit('TOGGLE_ADD_PRODUCT');
-    console.log('save cart to db');
+    console.log('save product to db');
+}
+export const initProductOptions = ({commit}) => {
+    Tracker.autorun((c) => {
+        Meteor.subscribe('product_options');
+        let options = ProductOptions.findOne({ });
+        commit('INIT_PRODUCT_OPTIONS', options);
+    })
+}
+export const updateProductOptions = async ({commit}, option) => {
+    // TODO :: Also save to DB
+    return new Promise((resolve, reject) => {
+        Meteor.call('product_options.update', option, (err, result) =>{
+            console.log("product_options updated > ", option);
+            resolve();
+        });
+    });
+    commit('UPDATE_PRODUCT_OPTIONS', option);
 }

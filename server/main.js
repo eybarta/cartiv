@@ -5,6 +5,12 @@ const API_KEY = "AIzaSyDYeKhSxCq8gMuLKfPYPRMxMkGf4k3CKpM";
 
 Meteor.startup(() => {
   // code to run on server at startup
+	FastRender.route('/cartsbank', function(params) {
+		this.subscribe('carts');
+	});
+	FastRender.route('/cart/:cartId', function(params) {
+		this.subscribe('inventory');
+	});
   Meteor.methods({
 
 	  getLocation: function (input) {
@@ -12,12 +18,6 @@ Meteor.startup(() => {
 	  	try {
             return HTTP.call("GET", "https://maps.googleapis.com/maps/api/place/autocomplete/json",
 		  		{params: {input:input, components:"country:us", types:"establishment", key:API_KEY}});
-            // //https://maps.googleapis.com/maps/api/place/textsearch/json
-		  	// console.log("RESULT>> ", result);
-		  	// // EXAMPLE PHOTO REQUEST >>
-            // var result2 = HTTP.call("GET", "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=CmRYAAAAJQ8yIaeWKbuTIDik0XXZpBkhtYH3AJLtY8R8L3YO_raVwIVyCsuiZxQrbqmDt76LPPKNUYH0MkGiciOWH_lfy4aG8D3mdK-ms75AkVdcAUIB0ypQwNIHUPnUGp3PsTTAEhDdneYUAjk0gFHMFUrBjyIHGhRAAx2GWfp75mgAY6nvbP3Fj6S-8Q&key=AIzaSyDYeKhSxCq8gMuLKfPYPRMxMkGf4k3CKpM");
-            // console.log("result2>>", result2);
-		  	// // https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference="CmRYAAAAJQ8yIaeWKbuTIDik0XXZpBkhtYH3AJLtY8R8L3YO_raVwIVyCsuiZxQrbqmDt76LPPKNUYH0MkGiciOWH_lfy4aG8D3mdK-ms75AkVdcAUIB0ypQwNIHUPnUGp3PsTTAEhDdneYUAjk0gFHMFUrBjyIHGhRAAx2GWfp75mgAY6nvbP3Fj6S-8Q"&key=AIzaSyDYeKhSxCq8gMuLKfPYPRMxMkGf4k3CKpM
 	  	}
 	  	catch (e) {
 	  		console.log('server error > ', e);
