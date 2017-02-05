@@ -12,7 +12,7 @@ export default {
 		}
 	},
 	components: {
-		Signup
+		// Signup
 	},
 	created() {
 		console.log('test was created successfuly');
