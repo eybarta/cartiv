@@ -1,7 +1,6 @@
 <template>
     <div v-show="!!defaultView || !!loaded" :class="[thumbnailClass, preloaderClass]" @click="actionCallback">
         <i v-if="!src || (!!defaultView && !loaded)" :class="defaultView"></i>
-        <!--<item-settings v-if="!!actions.length" :actions="actions"></item-settings>-->
     </div>
 </template>
 
@@ -53,18 +52,12 @@ export default{
     mounted() {
         if (!this.src) return;
         let ref = this;
-        setTimeout(()=> {
-            let src = ref.src;
-            $('<img/>').attr('src', src).error(function(e) {
-                console.log("error loading img > ", e);
-                $(this).remove();
-                ref.loaded = false;
-            }).load(function() {
-                $(this).remove();
-                ref.loaded = true;
-                ref.$el.style = `background-image:url(${src}); background-size:108% 108%;`
-            });
-        },200)
+        this.loadImage()
+    },
+    watch: {
+        'src'() {
+            this.loadImage();
+        }
     },
     components: {
         itemSettings
@@ -79,6 +72,21 @@ export default{
                 let image = this.src;
                 this[this.callback](image);
             }
+        },
+        loadImage() {
+            let ref = this;
+             setTimeout(()=> {
+                let src = ref.src;
+                $('<img/>').attr('src', src).error(function(e) {
+                    console.log("error loading img > ", e);
+                    $(this).remove();
+                    ref.loaded = false;
+                }).load(function() {
+                    $(this).remove();
+                    ref.loaded = true;
+                    ref.$el.style = `background-image:url(${src}); background-size:108% 108%;`
+                });
+            },200)
         }
     },
     computed: {

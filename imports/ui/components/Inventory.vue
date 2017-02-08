@@ -5,22 +5,19 @@
 
             <div class="btn-group">
 
-                <button class="btn btn-primary" @click.prevent="toggleAddProduct">
+                <button class="btn btn-primary" @click.prevent="callPopup({ type:'addProduct'})">
                     Add Product
                 </button>
                 
             </div>
         </div>
-        <ul class="item-list waffle-parent-3">
-
-            <!--<li class="new-product" @click.prevent="toggleAddProduct">
-                <div class="location-thumb">
-                    <i class="fa fa-plus big-icon"></i>
-                </div>
-            </li>-->
-
-
-            <li v-for="product in inventory">
+            <transition-group ref="list" name="list" tag="ul" appear
+                    class="item-list waffle-parent-3"
+                    @before-enter="beforeEnter"
+                    @enter="enter"
+                    @leave="leave"
+                    mode="out-in">
+            <li v-for="product in inventory" :key="product._id" @click.prevent="callPopup({type:'viewProduct', item: product})">
          	    <item-image 
                     :src="product.image"
                     default-view="fa fa-file-image-o"
@@ -33,9 +30,13 @@
                     <span><strong>$ {{ product.priceMin }} {{ !!product.priceMax ? ' - ' + product.priceMax : '' }}</strong></span>
                 </div>
             </li>
-        </ul>
+            </transition-group>
         <transition name="fade">
-            <add-product v-if="activeAddProduct"></add-product>
+            <popup v-if="popup.active">
+                <component v-if="!!popup.type" :is="popup.type"></component>
+                <!--<add-product v-if="popup.type=='add-product'"></add-product>
+                <view-product v-else-if="popup.type=='view-product'"></view-product>-->
+            </popup>
 		</transition>
     </div>
 </template>
@@ -52,16 +53,12 @@
         margin-top 5px
 </style>
 <script>
-    import {
-        mapActions,
-        mapState,
-        mapGetters
-    } from 'vuex';
-    import {
-        toggleAddProduct
-    } from '../../vuex/actions';
+    import { mapActions, mapState,mapGetters } from 'vuex';
+    import Popup from  '../layouts/Popup.vue';
     import AddProduct from './AddProduct.vue';
+    import ViewProduct from './ViewProduct.vue';
     import ItemImage from './itemImage.vue'
+    import Velocity from 'velocity-animate';
     export default {
         data() {
             return {}
@@ -70,17 +67,43 @@
             console.log('yo from inventory >> ', this.inventory);
         },
         components: {
+            Popup,
             AddProduct,
+            ViewProduct,
             ItemImage,
         },
         methods: {
             ...mapActions([
-                'toggleAddProduct'
-            ])
+                'callPopup',
+                'closePopup'
+            ]),
+            beforeEnter: function (el) {
+			$(el).css({
+				opacity:0,
+				transform: 'translateY(20%)'
+			})
+		},
+		enter: function (el, done) {
+			var delay = el.dataset.index * 100;
+			setTimeout(function () {
+				Velocity(
+				el,
+				{ opacity: 1, transform: 'translateY(0)' },
+				{ complete: done }
+				)
+			}, delay)
+		},
+		leave: function (el, done) {
+			$(el).css({
+				opacity:0,
+				transform: 'translateY(120%)'
+			})
+			done();
+		},
         },
         computed: {
             ...mapState([
-                'activeAddProduct',
+                'popup',
                 'inventory'
             ])
 

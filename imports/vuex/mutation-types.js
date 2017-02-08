@@ -1,5 +1,9 @@
 export const INIT_USER_ID = 'INIT_USER_ID';
 
+// MISC
+export const CLOSE_POPUP = 'CLOSE_POPUP';
+export const CALL_POPUP = 'CALL_POPUP';
+
 // CART MUTATIONS
 export const INIT_CARTS_STATE = 'INIT_CARTS_STATE';
 export const UPDATE_CARTS_STATE = 'UPDATE_CARTS_STATE';

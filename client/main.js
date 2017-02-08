@@ -50,7 +50,10 @@ Meteor.startup(() => {
         console.log("userid > ", Accounts.userId());
         this.$store.dispatch('initCartsState', Accounts.userId());
         this.$store.dispatch('initInventoryState', Accounts.userId());
-        this.$store.dispatch('initProductOptions', Accounts.userId());
+        this.$nextTick(function() {
+          this.$store.dispatch('initProductOptions', Accounts.userId());
+
+        })
         
 
         // console.log("init carts >> ", carts);

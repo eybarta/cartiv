@@ -19,15 +19,33 @@ button
 			background rgba(blue, 0.01)
 			color darken(blue,55)
 			border 1px solid darken(blue,55)
+			&:hover
+				background rgba(blue, 0.1)
 		&.btn-success
 			background rgba(green, 0.05)
 			color darken(green,20)
-			border 3px solid darken(green,20)
+			border 1px solid darken(green,20)
 			transition background 200ms ease
 			&:hover
 				background rgba(green, 0.1)
-		
-		
+		&.btn-warning
+			background rgba(orange, 0.05)
+			color darken(orange,20)
+			border 1px solid darken(orange,20)
+			transition background 200ms ease
+			&:hover
+				background rgba(orange, 0.1)
+		&.btn-danger
+			background rgba(red, 0.05)
+			color darken(red,20)
+			border 1px solid darken(red,20)
+			transition background 200ms ease
+			&:hover
+				background rgba(red, 0.1)
+.btn-group
+	&.center
+		text-align center
+
 // ICON BUTTONS
 .btn
 	cursor pointer

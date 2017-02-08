@@ -53,6 +53,11 @@
             console.log('my image elemetn > ', this.$refs.image);
            if (!!this.image) this.finalimagesrc = this.image;
         },
+        watch: {
+            'image'() {
+                this.finalimagesrc = this.image;
+            }
+        },
         methods: {
             uploadHandler(e) {
                 this.finalimagesrc = null;

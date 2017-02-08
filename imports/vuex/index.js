@@ -16,7 +16,11 @@ const state = {
     currentCart: {},
     carts: [],
     userId:null,
-    
+    popup: {
+        active:false,
+        type:null,
+        item:null
+    },
     // INVENTORY
     activeAddProduct: false,
     inventory: [],
@@ -24,6 +28,20 @@ const state = {
 }
 
 const mutations = {
+    // MISC
+    CLOSE_POPUP (state) {
+        state.popup.active = false //!state.popup.active
+        state.popup.type = null
+        state.popup.item = null
+    },
+    CALL_POPUP (state, data) {
+        state.popup.active = true;
+        state.popup.type = data.type;
+        if (!!data.item) {
+            state.popup.item = data.item;
+        }
+
+    },
     INIT_USER_ID (state, userId) {
         state.userId = userId;
     },

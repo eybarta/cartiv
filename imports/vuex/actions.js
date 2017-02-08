@@ -17,6 +17,15 @@ export const initUserId = ({ commit }) => {
 
 }
 
+
+export const closePopup = ({commit}) => {
+    
+    commit('CLOSE_POPUP')
+}
+export const callPopup = ({commit}, data) => {
+    console.log("CALL POPUP >> data: ", data);
+    commit('CALL_POPUP', data)
+}
 // CART ACTIONS
 export const toggleAddCart = ({ commit }) => {
   commit('TOGGLE_ADDCART');
@@ -56,9 +65,9 @@ export const updateCurrentCartThumb = ({ commit }, image) => {
 export const initInventoryState = ({ commit }) => {
     Tracker.autorun((c) => {
         Meteor.subscribe('inventory');
-        let inventory = Inventory.find({ }).fetch();
-        commit('UPDATE_INVENTORY_STATE', inventory)
-        console.log("updated inventory from db > ", inventory);
+        let inventory = Inventory.find({}, { fields: { 'owner':0, 'createdAt':0 }}).fetch();
+            commit('UPDATE_INVENTORY_STATE', inventory)
+            console.log("updated inventory from db > ", inventory);
     })
 }
 export const toggleAddProduct = ({ commit }) => {
@@ -73,11 +82,26 @@ export const insertProductToDb = async ({ commit }, product) => {
     });
 }
 export const saveProduct = async ({ commit, dispatch }, product) => {
-    commit('SAVE_PRODUCT', product, await dispatch('insertProductToDb', product));
-	commit('TOGGLE_ADD_PRODUCT');
-    console.log('save product to db');
+    // commit('SAVE_PRODUCT', product, await dispatch('insertProductToDb', product));
+    new Promise((resolve, reject) => {
+        Meteor.call('inventory.insert', product, (err, result) =>{
+            resolve();
+            console.log("product saved to db");
+        });
+    });
+	dispatch('closePopup');
+}
+export const deleteProduct = ({ commit, dispatch }, id) => {
+    new Promise((resolve, reject) => {
+        Meteor.call('inventory.delete', id, (err, result) =>{
+            resolve();
+            console.log("product deleted from db");
+        });
+    });
+	dispatch('closePopup');
 }
 export const initProductOptions = ({commit}) => {
+    Meteor.call('product_options.init');
     Tracker.autorun((c) => {
         Meteor.subscribe('product_options');
         let options = ProductOptions.findOne({ });

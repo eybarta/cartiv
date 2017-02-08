@@ -7,15 +7,7 @@ export const Inventory = new Mongo.Collection('inventory');
 
 export const ProductOptions = new Mongo.Collection('product_options')
 
-// initialize Product Options defaults
-ProductOptions.upsert({_id: "defaultOptionsXy3e3"}, { 
-        _id: "defaultOptionsXy3e3",
-        type: [],
-        category: [],
-        brand: [],
-        size: ['Small', 'Medium', 'Large']
-    }
-)
+
 
 
 if (Meteor.isServer) {
@@ -39,19 +31,29 @@ Meteor.methods({
 
 
         console.log('PRODUCT TO INSERT >>> ', product);
+
+        let product_from_db = Inventory.find({ _id: product._id}).fetch()
+        console.log('product_from_db .. ',product_from_db);
+        if (product_from_db.length>0) {
+            Inventory.update({ _id: product._id}, product)
+        }
+        else {
         let product_to_insert = _.merge({
             createdAt: new Date(),
             owner: this.userId   
         }, product);
 
         Inventory.insert(product_to_insert)
+        }
     },
-    'inventory.remove'(productId) {
-        check(productId, String);
+    'inventory.delete'(id) {
+        check(id, String);
 
-        Inventory.remove(productId);
+        Inventory.remove(id);
     },
-
+    'fetch_inventory'() {
+        return Inventory.find({}, { fields: { 'owner':0, 'createdAt':0 }}).fetch();
+    },
     // PRODUCT OPTIONS DEFAULTS
     'product_options.update'(option){
         let prop = option.name;
@@ -63,6 +65,25 @@ Meteor.methods({
 
         
         )
+        let productoptions = ProductOptions.find({_id: "defaultOptionsXy3e3"}).fetch();
+        console.log("product options UPDATED >> ", productoptions);
+                
+    },
+    // initialize Product Options defaults
+    'product_options.init'() {
+        let productoptions = ProductOptions.find({_id: "defaultOptionsXy3e3"}).fetch();
+        if (productoptions.length<1) {
+            ProductOptions.upsert({
+                _id: "defaultOptionsXy3e3"
+            }, { 
+                $set: {
+                    type: [],
+                    category: [],
+                    brand: [],
+                    size: ['Small', 'Medium', 'Large']
+                }
+            })
+        }
     }
     
 })
