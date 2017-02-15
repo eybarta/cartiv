@@ -32,5 +32,13 @@ Meteor.methods({
     check(cartId, String);
  
     Carts.remove(cartId);
-  }
+  },
+  // 'carts.addproduct'(data) {
+  //   check(data.cartId, String);
+  //   check(data.productId, String);
+  //   check(data.amount, Number);
+
+  //   Carts.upsert({_id: data.cartId}, { $push : { "inventory" : { "productId" : data.productId, "amount" : data.amount}}},)
+  // }
+  
 });

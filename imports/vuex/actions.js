@@ -17,15 +17,23 @@ export const initUserId = ({ commit }) => {
 
 }
 
-
+// POPUP
 export const closePopup = ({commit}) => {
-    
     commit('CLOSE_POPUP')
 }
 export const callPopup = ({commit}, data) => {
     console.log("CALL POPUP >> data: ", data);
     commit('CALL_POPUP', data)
 }
+
+// MODAL
+export const closeModal = ({commit}) => {
+    commit('CLOSE_MODAL')
+}
+export const callModal = ({commit}, data) => {
+    commit('CALL_MODAL', data)
+}
+
 // CART ACTIONS
 export const toggleAddCart = ({ commit }) => {
   commit('TOGGLE_ADDCART');
@@ -74,19 +82,28 @@ export const toggleAddProduct = ({ commit }) => {
   commit('TOGGLE_ADD_PRODUCT');
 }
 
-export const insertProductToDb = async ({ commit }, product) => {
-    return new Promise((resolve, reject) => {
-        Meteor.call('inventory.insert', product, (err, result) =>{
+export const saveProductToLocation = async ({ commit, dispatch }, data) => {
+    new Promise((resolve, reject) => {
+        Meteor.call('inventory.addtolocation', data, (err,result) => {
             resolve();
-        });
-    });
+            console.log('product saved to cart')
+            dispatch('closeModal')
+        })
+    })
 }
-export const saveProduct = async ({ commit, dispatch }, product) => {
+export const saveProduct = async ({ commit, dispatch, state }, product) => {
     // commit('SAVE_PRODUCT', product, await dispatch('insertProductToDb', product));
     new Promise((resolve, reject) => {
-        Meteor.call('inventory.insert', product, (err, result) =>{
+        if (!!product.addtocart) { 
+            product.cartId = state.route.params.cartId
+        }
+        Meteor.call('inventory.insert', product, function(err, result) {
             resolve();
-            console.log("product saved to db");
+            if (!!product.addtocart) { 
+                // Save added product to current cart
+                let data = { cartId: state.route.params.cartId, productId: result, amount: product.amount }
+                dispatch('saveProductToLocation', data)
+            }
         });
     });
 	dispatch('closePopup');

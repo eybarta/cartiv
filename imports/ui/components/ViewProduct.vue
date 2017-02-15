@@ -13,7 +13,7 @@
 			</li>
 		</ul>
 		<div class="btn-group center">
-			<button class="btn btn-primary" @click="callPopup({ type: 'addProduct', item: cloneItem()})"><i class="fa fa-copy"></i> Clone</button>
+			<button class="btn btn-primary" @click="callPopup({ type: 'addProduct', data: cloneItem()})"><i class="fa fa-copy"></i> Clone</button>
 			<button class="btn btn-warning" @click="callPopup({ type: 'addProduct'})"><i class="fa fa-edit"></i> Edit</button>
 			<button class="btn btn-danger" @click="deleteProduct(product._id)"><i class="fa fa-trash"></i> Delete</button>
 		</div>
@@ -40,10 +40,10 @@ export default {
 	},
 	computed: {
 		...mapState({
-			product: state => state.popup.item
+			product: state => state.popup.data
 		}),
 		productProps() {
-			return _.omit(this.product, ['image', '_id'])
+			return _.omit(this.product, ['image', '_id', 'cartId', 'atLocations'])
 		}
 	}
 }

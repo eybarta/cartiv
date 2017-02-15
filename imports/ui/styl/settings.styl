@@ -1,24 +1,16 @@
+@import '../../../node_modules/rupture/rupture/index';
 @import './variables.import.styl'
 // OPTIONS
-
-// MARGINS
-for size,value in margin
-	.mt-{size}
-		margin-top value
-	.mb-{size}
-		margin-bottom value
-	.ml-{size}
-		margin-left value
-	.mr-{size}
-		margin-right value
-	.pt-{size}
-		padding-top value
-	.pb-{size}
-		padding-bottom value
-	.pl-{size}
-		padding-left value
-	.pr-{size}
-		padding-right value
+// breakpoints
+bp = {
+	mobile: 640px,
+	mid: 570px,
+	tablet: 769px,
+	base: 1024px,
+	big: 1200px,
+	bigger: 1600px,
+	max: 1880px
+}
 
 .clearfix:after
 	content ''
@@ -69,3 +61,33 @@ for size,value in margin
 	color lighten(gray, 70)
 .half-height
 	height 50vh
+
+
+// margins + padding aliases
+spaces = {
+	mt: margin-top,
+	mb: margin-bottom,
+	ml: margin-left,
+	mr: margin-right,
+	pt: padding-top,
+	pb: padding-bottom,
+	pl: padding-left,
+	pr: padding-right,
+}
+margins = {
+	min:10px,
+	small:20px,
+	med:30px,
+	big:50px,
+	bigger:70px,
+	max:100px
+}
+// margin 
+for alias, prop in spaces
+	for size,value in margins
+		.{alias}-{size}
+			{prop} value
+			+below(bp.tablet)
+				{prop} round((value/1.6))
+			+below(bp.mobile)
+				{prop} round((value/2))

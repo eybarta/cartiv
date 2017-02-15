@@ -2,14 +2,6 @@ import Vue from 'vue'
 import Vuex from 'vuex';
 import * as actions from './actions'
 
-
-// const productOptions = {
-//     type: [],
-//     category: [],
-//     brand: [],
-//     size: ['Small', 'Medium', 'Large']
-// }
-
 const state = {
     // CARTS
     activeAddCart: false,
@@ -18,8 +10,13 @@ const state = {
     userId:null,
     popup: {
         active:false,
+        ui: 'circle',
         type:null,
-        item:null
+        data:null
+    },
+    modal: {
+        active:false, 
+        content:null,
     },
     // INVENTORY
     activeAddProduct: false,
@@ -32,16 +29,30 @@ const mutations = {
     CLOSE_POPUP (state) {
         state.popup.active = false //!state.popup.active
         state.popup.type = null
-        state.popup.item = null
+        state.popup.data = null
     },
     CALL_POPUP (state, data) {
         state.popup.active = true;
         state.popup.type = data.type;
-        if (!!data.item) {
-            state.popup.item = data.item;
+        if (!!data.data) {
+            state.popup.data = data.data;
         }
+        state.popup.ui = data.ui || 'circle';
 
     },
+// MISC
+    CLOSE_MODAL (state) {
+        state.modal.active = false //!state.popup.active
+        state.modal.content = null
+    },
+    CALL_MODAL (state, data) {
+        state.modal.active = true;
+        if (!!data.content) {
+            state.modal.content = data.content;
+        }
+    },
+
+
     INIT_USER_ID (state, userId) {
         state.userId = userId;
     },
@@ -104,6 +115,18 @@ const getters = {
             cart = _.filter(state.carts, {_id: cartId});
         return !!cart.length ? cart[0] : null;
     },
+    activeInventory: state => {
+        let cartId = state.route.params.cartId,
+            inventory = state.inventory;
+        
+        if (!!cartId) {
+            // Fetch only for this cart
+            return _.filter(inventory, product => {
+                let locations = _.map(product.atLocations, 'locationId');
+                return locations.indexOf(cartId)>-1
+            })
+        }
+    }
 }
 export const storeconfig = {
     mutations,

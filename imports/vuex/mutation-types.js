@@ -3,6 +3,8 @@ export const INIT_USER_ID = 'INIT_USER_ID';
 // MISC
 export const CLOSE_POPUP = 'CLOSE_POPUP';
 export const CALL_POPUP = 'CALL_POPUP';
+export const CALL_MODAL = 'CALL_MODAL';
+export const CLOSE_MODAL = 'CLOSE_MODAL';
 
 // CART MUTATIONS
 export const INIT_CARTS_STATE = 'INIT_CARTS_STATE';

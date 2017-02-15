@@ -71,6 +71,7 @@
                                 
                             </li>
                         </ul>
+                        <label class="addtocart"><input v-model="addtocart" type="checkbox"> <span>Add to this cart?</span></label>
                     </div>
             </transition>
             <div class="nav-btns">
@@ -97,6 +98,7 @@ export default{
                 active: 1,
                 amount: 2
             },
+            addtocart: false,
             id:null,
             name:'',
             description:'',
@@ -137,9 +139,9 @@ export default{
         var ref = this;
         this.bindKeys();
         this.setColorClassifier();
-       console.log("ITEM > ", this.popup.item);
-       if (!!this.popup.item) {
-           _.merge(this.$data, this.itemParse(this.popup.item));
+       console.log("ITEM > ", this.popup.data);
+       if (!!this.popup.data) {
+           _.merge(this.$data, this.itemParse(this.popup.data));
        }
 
     },
@@ -213,6 +215,7 @@ export default{
             console.log('submit price >> ', price);
                 product =  {
                     _id: !!this.id ? this.id : null,
+                    image: this.image,   
                     type: !!this.type ? this.type : null,
                     brand: !!this.brand ? this.brand : null,
                     category: !!this.category ? this.category : null,
@@ -220,12 +223,12 @@ export default{
                     priceMin: price[0],
                     priceMax: price[1],
                     amount: parseInt(this.amount),
-                    image: this.image,   
                     color: this.color,                 
-                    cost: !!this.cost ? parseInt(this.cost) : null
+                    cost: !!this.cost ? parseInt(this.cost) : null,
+                    addtocart: this.addtocart,
                 }
             console.log("2 Save product > ", _.pickBy(product));
-            
+            // this.attachProductToCart()
             this.saveProduct(_.pickBy(product));
         },
         nextStep() {
@@ -411,6 +414,20 @@ export default{
                 height auto
                 font-size 16px
                 /*text-transform capitalize*/
+.addtocart
+    display block
+    margin 10% auto 0
+    font-size 22px   
+    text-align center
+    &:before
+        display inline-block
+        vertical-align middle
+        height 100%
+        content ''
+    & > *
+        display inline-block
+        vertical-align middle
+        margin 0 3px
 .palette
     padding-top 30px
     text-align center
