@@ -3,11 +3,11 @@
 		<table border="0" cell-padding="0" cellspacing="0">
 			<thead>
 				<tr>
-					<th v-for="(value, key) in popdata[0]" v-if="key!=='_id' && key!=='atLocations'">{{ key }}</th>
+					<th v-for="(value, key) in parsedData[0]" v-if="key!=='_id' && key!=='atLocations'">{{ key }}</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr v-for="item in popdata" @click="callModal({ content:item})">
+				<tr v-for="item in parsedData" @click="callModal({ content:item})">
 					<td v-for="(value, key) in item" v-if="key!=='_id' && key!=='atLocations'" track-by="_id" v-html="key=='image' ? '<img src='+value+'>' : value"></td>
 				</tr>
 			</tbody>
@@ -19,10 +19,10 @@
 					<div v-if="!!quantifyAvailability">
 					<h6>How many items to take?</h6>
 					<input v-model="transferAmount" placeholder="Type in amount" type="number">
-					<span class="pt-min">({{ quantifyAvailability }} are available)</span>
+					<span class="pt-min">({{ quantifyAvailability }} {{ quantifyAvailability>1 ? 'are' : 'is'}} available)</span>
 					</div>
 					<h4 class="red" v-else>Product is out of stock</h4>
-					<div v-if="!!modal.content.atLocations" class="locations pt-med">
+					<div v-if="!!modal.content.atLocations" class="locations pt-big">
 						<h6 class="orange">Stocked at locations:</h6>
 						<ul>
 							<li v-for="location in modal.content.atLocations">
@@ -33,8 +33,8 @@
 					
 				</label>
 				<div v-if="!!quantifyAvailability" class="btn-group txt-right mt-med mb-min">
-					<button class="btn" @click="closeModal">Cancel</button>
-					<button class="btn btn-success" @click="saveProductToLocation({ cartId:route.params.cartId, productId: modal.content._id, amount: transferAmount })">Submit</button>
+					<button class="btn" @click="transferAmount=null; closeModal()">Cancel</button>
+					<button class="btn btn-success" @click="saveProductToLocation({ cartId:route.params.cartId, productId: modal.content._id, amount: transferAmount }); transferAmount=null">Submit</button>
 				</div>
 				<button v-else class="btn right mt-med mb-med" @click="closeModal">OK</button>
 			</div>
@@ -43,7 +43,7 @@
 
 </template>
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapActions, mapState, mapGetters } from 'vuex'
 import Modal from '../layouts/Modal.vue'
 export default {
 	props: ['popdata'],
@@ -53,7 +53,7 @@ export default {
 		}
 	},
 	created() {
-		console.log("popdata == ", this.popdata);
+		console.log("popdata == ", this[this.popdata]);
 	},
 	components: {
 		Modal
@@ -80,6 +80,9 @@ export default {
 			'carts',
 			'route'
 		]),
+		...mapGetters([
+			'parsedInventory'
+		]),
 		quantifyAvailability() {
 			let product = this.modal.content;
 			let sumAtLocations = 0;
@@ -87,48 +90,18 @@ export default {
 				sumAtLocations = _.sumBy(product.atLocations, 'amount')
 			}
 			return product.amount - sumAtLocations;
+		},
+		parsedData() {
+			return this[this.popdata]
 		}
 	}
 }
 </script>
 <style lang="stylus">
 @import '~imports/ui/styl/variables.import'
-.modal-content
-	padding 10%
-	span
-		display inline-block
-	label 
-		h4
-			margin-bottom 10px
-		h6
-			color darken(green, 10)
-			font-size 18px
-			margin-bottom 10px
-		input
-			border 0
-			border-bottom 1px solid lighten(gray, 30)
-			width 100%
-			padding 2%
-	ul li
-		& > * 
-			display inline-block
-			vertical-align middle
-
-	.circled
-		border-radius 360px
-		background lighten(green, 55)
-		border 1px solid lighten(gray, 45)
-		padding 1%
-		width 30px
-		height 30px
-		display inline-block
-		text-align center
-		line-height 20px
-	.btn-group
-		padding-top 30px
 .table-wrap
 	margin 0 auto
-	padding 10% 5%
+	padding 5%
 	max-height 95%
 	overflow hidden
 	overflow-y auto
@@ -144,15 +117,19 @@ export default {
 				font-size 16px
 				text-transform capitalize
 				letter-spacing 0.5px
+				&:first-child
+					border-radius 4px 0 0 0
+				&:last-child
+					border-radius 0 4px 0 0
 		tbody
 			tr
 				cursor pointer
 				&:nth-child(even)
-					background-color lighten(#c1c1c1, 20)
+					background-color lighten(#c1c1c1, 22)
 				&:hover
 					background-color lighten(red, 30)
 				td
-					border-bottom 1px solid #c1c1c1
+					border-bottom 1px solid lighten(#c1c1c1, 10)
 					vertical-align middle
 					padding 5px 10px
 					img

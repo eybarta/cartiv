@@ -7,8 +7,6 @@
 	</div>
 </template>
 <script>
-import 'linearicons'
-
 import { mapActions } from 'vuex'
 export default {
 	methods: {
@@ -43,4 +41,40 @@ export default {
 		right 3px
 		cursor pointer
 		font-size 22px
+	.modal-content
+		padding 10% 10% 5% 10%
+		h4
+			padding-left 0
+		span
+			display inline-block
+		label 
+			h4
+				margin-bottom 10px
+			h6
+				color darken(green, 10)
+				font-size 18px
+				margin-bottom 10px
+			input
+				border 0
+				border-bottom 1px solid lighten(gray, 30)
+				width 100%
+				padding 2%
+		ul li
+			margin-bottom 15px
+			& > * 
+				display inline-block
+				vertical-align middle
+
+		.circled
+			border-radius 360px
+			background lighten(green, 55)
+			border 1px solid lighten(gray, 45)
+			padding 1%
+			width 30px
+			height 30px
+			display inline-block
+			text-align center
+			line-height 20px
+		.btn-group
+			padding-top 30px
 </style>

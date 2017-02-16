@@ -13,7 +13,7 @@
 import { mapActions } from 'vuex';
 import { updateCurrentCartThumb } from '../../vuex/actions';
 
-import itemSettings from './itemSettings.vue';
+import ItemSettings from './ItemSettings.vue';
 export default{
     props: {
         src: {

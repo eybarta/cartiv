@@ -21,6 +21,7 @@ if (Meteor.isServer) {
 
 Meteor.methods({
     'inventory.insert'(product) {
+        console.log("PROUDCT TO INSERT<", product);
         // check(product.type.value, String);
         check(product.priceMin, Number);
         check(product.amount, Number)
@@ -60,8 +61,27 @@ Meteor.methods({
           check(data.cartId, String);
         check(data.productId, String);
         check(data.amount, Number);
+        console.log("product to add to cart > ",data);
 
-        Inventory.upsert({_id: data.productId}, { $push : { "atLocations" : { "locationId" : data.cartId, "amount" : data.amount}}},)
+        let productAtLocation = Inventory.find( {_id:data.productId, "atLocations.locationId": data.cartId}).fetch();
+        console.log("productAtLocation > ",productAtLocation);
+        if (productAtLocation.length>0) {
+            Inventory.update(
+                { _id: data.productId, "atLocations.locationId": data.cartId},
+                { 
+                    "$inc": {
+                        "atLocations.$.amount" : data.amount
+                    }
+                }
+            )
+        }
+        else {
+        console.log("else > ");
+            
+            Inventory.upsert({_id: data.productId}, { $push : { "atLocations" : { "locationId" : data.cartId, "amount" : data.amount}}})
+
+        }
+
     },
     'fetch_inventory'() {
         return Inventory.find({}, { fields: { 'owner':0, 'createdAt':0 }}).fetch();

@@ -4,12 +4,12 @@
             <h4>CART INVENTORY</h4>
 
             <div class="btn-group">
-
-                <button class="btn btn-primary" @click.prevent="callPopup({ type:'addProduct'})">
-                    <i class="lnr lnr-plus-circle"></i>Add New Product
+                <button class="btn btn-success" @click.prevent="callPopup({ type:'addProduct'})">
+                    Add New Product
                 </button>
-                <button class="btn btn-warning" @click.prevent="callPopup({ ui:'square', type:'DataTable', data:parseInventory(inventory)})"><i class="fa fa-tencent-weibo"></i> Fetch from Inventory</button>
-                
+                <button class="btn btn-warning" 
+                    @click.prevent="callPopup({ title:'Select product', ui:'square', type:'DataTable', data:'parsedInventory' })">
+                    Fetch from Inventory</button>
             </div>
         </div>
             <transition-group ref="list" name="list" tag="ul" appear
@@ -34,6 +34,7 @@
             </transition-group>
         <transition name="fade">
             <popup v-if="popup.active">
+                <h4 v-if="!!popup.title" v-text="popup.title"></h4>
                 <component v-if="!!popup.type" :is="popup.type" :popdata="popup.data"></component>
                 <!--<add-product v-if="popup.type=='add-product'"></add-product>
                 <view-product v-else-if="popup.type=='view-product'"></view-product>-->
@@ -42,6 +43,9 @@
     </div>
 </template>
 <style lang="stylus" scoped>
+.item-list
+    padding-top 30px
+    clear both
 .top-bar 
     h4 
         float left
@@ -54,7 +58,6 @@
         margin-top 5px
 </style>
 <script>
-    import 'linearicons'
     import { mapActions, mapState,mapGetters } from 'vuex';
     import Popup from  '../layouts/Popup.vue';
     import AddProduct from './AddProduct.vue';
@@ -104,22 +107,7 @@
                     transform: 'translateY(120%)'
                 })
                 done();
-            },
-            parseInventory(inventory) {
-                return _.map(inventory, product => {
-                    return {
-                        _id: product._id,
-                        image: product.image,
-                        type: product.type,
-                        category: product.category,
-                        brand: product.brand,
-                        size: product.size,
-                        amount: product.amount,
-                        price: product.priceMax || product.priceMin,
-                        atLocations: product.atLocations || null
-                    }
-                })
-            }
+            }            
         },
         computed: {
             ...mapState([
@@ -127,8 +115,10 @@
                 'inventory'
             ]),
             ...mapGetters([
-                'activeInventory'
-            ])
+                'activeInventory',
+                'parsedInventory'
+            ]),
+            
 
         }
     }

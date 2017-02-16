@@ -12,7 +12,8 @@ const state = {
         active:false,
         ui: 'circle',
         type:null,
-        data:null
+        data:null,
+        title:null
     },
     modal: {
         active:false, 
@@ -30,13 +31,13 @@ const mutations = {
         state.popup.active = false //!state.popup.active
         state.popup.type = null
         state.popup.data = null
+        state.popup.title = null
     },
     CALL_POPUP (state, data) {
         state.popup.active = true;
         state.popup.type = data.type;
-        if (!!data.data) {
-            state.popup.data = data.data;
-        }
+        state.popup.data = data.data || null;
+        state.popup.title = data.title || null;
         state.popup.ui = data.ui || 'circle';
 
     },
@@ -126,6 +127,22 @@ const getters = {
                 return locations.indexOf(cartId)>-1
             })
         }
+    },
+    parsedInventory: state => {
+        let inventory = state.inventory;
+        return _.map(inventory, product => {
+            return {
+                _id: product._id,
+                image: product.image,
+                type: product.type,
+                category: product.category,
+                brand: product.brand,
+                size: product.size,
+                amount: product.amount,
+                price: product.priceMax || product.priceMin,
+                atLocations: product.atLocations || null
+            }
+        })
     }
 }
 export const storeconfig = {

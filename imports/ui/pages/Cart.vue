@@ -1,14 +1,14 @@
 <template>
     <div class="page-wrap">
         <div class="container">
-            <div class="cart-info col-4">
-                <item-image :src="!!cart ? cart.thumb : null" default-view="fa fa-building-o" size="med" :loader="false"></item-image>
+            <div class="cart-info">
+                <!--<item-image :src="!!cart ? cart.thumb : null" default-view="fa fa-building-o" size="med" :loader="false"></item-image>-->
                 <span class="location-name txt-small ">
                     <i class="fa fa-location-arrow"></i>
                     <strong>{{!!cart ? cart.location : ''}}</strong>
                 </span>
             </div>
-            <div class="cart-inventory col-8">
+            <div class="cart-inventory">
                 <inventory :location="cart"></inventory>
 
 
@@ -50,10 +50,16 @@ export default{
 <style lang="stylus">
 @import '../styl/variables.import';
 .cart-info
-    border-right 1px solid orange
-    padding-bottom 40vh
+    border-bottom 1px solid orange
+    padding-bottom 10px
+    margin-bottom 30px
+    .thumbnail
+        display inline-block
+        vertical-align middle
     .location-name
-        display block
-        text-align center
+        display inline-block
+        vertical-align middle
+        text-align left
+
 
 </style>

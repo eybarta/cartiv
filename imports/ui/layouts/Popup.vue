@@ -8,7 +8,6 @@
 </template>
 
 <script>
-import 'linearicons'
 import {mapActions, mapState } from 'vuex'
 export default {
 	data() {
@@ -40,12 +39,12 @@ export default {
     right 0
     bottom 0
     background rgba(gray, 0.93)
-    z-index 999
+    z-index 99999
     .close
-        top 5%
-        right 5%
-        font-size 50px
-        z-index 9999
+        top 4%
+        right 4%
+        font-size 30px
+        z-index 999991
         cursor pointer
         &.dark
             color gray
@@ -56,13 +55,21 @@ export default {
         transform translate(-50%, -50%)
         background #fff
         z-index 21
-        width 95vmin
-        height 95vmin
+        width 95vw
+        height 95vh
         min-height 500px
-        min-width 500mx
+        min-width 500px
         backface-visibility hidden
         perspective 1px
         overflow hidden
+        border-radius 3px
+        h4
+            color red
+            text-transform uppercase
+            padding 3% 5% 0 5%
+            margin 0
+            font-weight 300
+            letter-spacing 1.2px
         &.circle
-            border-radius 360px            
+            border-radius 100%            
 </style>
