@@ -6,7 +6,7 @@
 </template>
 <script>
 import { mapState, mapActions } from 'vuex'
-import AppMenu from './components/AppMenu.vue'
+import AppMenu from './partials/AppMenu.vue'
 export default {
 	created() {
 		console.log('app was created successfuly');

@@ -20,7 +20,7 @@
 	</div>
 </template>
 <script>
-import ItemImage from './itemImage.vue'
+import ItemImage from '../item/ItemImage.vue'
 import { mapState, mapActions } from 'vuex'
 export default {
 	created() {
@@ -64,6 +64,7 @@ export default {
 				lost-column 1/2 2
 				text-transform capitalize
 				font-size 20px
+				color #202020
 				&:first-child
 					text-align right
 

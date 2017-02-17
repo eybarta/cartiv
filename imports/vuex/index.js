@@ -113,8 +113,8 @@ const getters = {
     },
 	activeCart: state => {
         let cartId = state.route.params.cartId,
-            cart = _.filter(state.carts, {_id: cartId});
-        return !!cart.length ? cart[0] : null;
+            cart = _.find(state.carts, {_id: cartId});
+        return !!cartId ? cart : null;
     },
     activeInventory: state => {
         let cartId = state.route.params.cartId,
@@ -126,6 +126,8 @@ const getters = {
                 let locations = _.map(product.atLocations, 'locationId');
                 return locations.indexOf(cartId)>-1
             })
+        } else {
+            return inventory
         }
     },
     parsedInventory: state => {

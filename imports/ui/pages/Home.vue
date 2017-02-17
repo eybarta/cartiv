@@ -4,11 +4,10 @@
 		<div class="actions">
 			<ul>
 				<li>
-					<a @click.prevent="toggleAddCart" href="#p"><span>CARTS</span></a>
+					<router-link :to="{ name:'cartsbank' }"><span>CARTS</span></router-link>
 				</li>
 				<li>
-					<a href="#p"><span>INVENTORY</span></a>
-					
+					<router-link :to="{ name:'inventory' }"><span>INVENTORY</span></router-link>
 				</li>
 				<li>
 					<a href="#p"><span>EMPLOYEES</span></a>

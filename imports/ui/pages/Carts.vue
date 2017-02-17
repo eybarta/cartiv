@@ -1,5 +1,5 @@
 <template>
-	<div class="bank-page">
+	<div class="bank-page carts">
 		<h2>YOUR CARTS</h2>
 		<!--<button @click="testshuf">click to shuffle</button>-->
 		<ul>
@@ -27,36 +27,21 @@
 	</div>
 </template>
 <script>
+// DB COLLECTIONS
+import { Carts } from '/imports/api/collections/carts.js'
+
+// VUEX
 import { mapActions, mapState, mapGetters } from 'vuex';
 import { toggleAddCart } from '/imports/vuex/actions';
-import { Carts } from '/imports/api/collections/carts.js'
+
+// COMPONENTS
 import AddCart from '../components/AddCart.vue';
-import itemImage from "../components/itemImage.vue";
+import ItemImage from "../components/item/ItemImage.vue";
+
 export default {
-	created() {
-		console.log('enter screen was created successfuly >> ', this.carts);
-	},
-	mounted() {
-			// console.log(this.$subReady.carts);
-	},
-	// data() {
-	// 	return {
-	// 		carts:null
-	// 	}
-	// },
-	// meteor: {
-	// 	subscribe: {
-	// 		'carts':[]
-	// 	},
-	// 	carts () {
-	// 		return Carts.find({}, {
-	// 			sort: {date: -1}
-	// 		});
-	// 	}
-	// },
 	components: {
 		AddCart,
-		itemImage
+		ItemImage
 	},
 	methods: {
 		...mapActions([
@@ -86,10 +71,7 @@ export default {
 	transition transform 1s
 
 
-.bank-page
-	padding 80px 2% 20px
-	background #f2f2f2
-	min-height 100%
+.carts
 	ul
 		li
 			color #fff

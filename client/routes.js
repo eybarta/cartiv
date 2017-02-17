@@ -5,9 +5,9 @@
 
 // pages
 import Home from '/imports/ui/pages/Home.vue';
-import CartsBank from '/imports/ui/pages/CartsBank.vue';
+import Carts from '/imports/ui/pages/Carts.vue';
 import Cart from '/imports/ui/pages/Cart.vue';
-
+import Inventory from '/imports/ui/pages/Inventory.vue';
 
 export const routes = [
 	{
@@ -18,12 +18,17 @@ export const routes = [
 	{
 		path: '/cartsbank',
 		name: 'cartsbank',
-		component: CartsBank
+		component: Carts
 	},
 	{
 		path:'/cart/:cartId',
 		name: 'cart',
 		component:Cart
+	},
+	{
+		path: '/inventory',
+		name: 'inventory',
+		component: Inventory
 	}
 ]
 

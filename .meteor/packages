@@ -38,3 +38,4 @@ akryum:vue-stylus
 babel-runtime@1.0.1
 blaze-html-templates
 meteorhacks:fast-render
+facebook-config-ui

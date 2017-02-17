@@ -1,13 +1,13 @@
 <template>
     <div>
         <div class="top-bar clearfix">
-            <h4>CART INVENTORY</h4>
+            <h4>PRODUCT LIST</h4>
 
             <div class="btn-group">
                 <button class="btn btn-success" @click.prevent="callPopup({ type:'addProduct'})">
                     Add New Product
                 </button>
-                <button class="btn btn-warning" 
+                <button v-if="!activeCart" class="btn btn-warning" 
                     @click.prevent="callPopup({ title:'Select product', ui:'square', type:'DataTable', data:'parsedInventory' })">
                     Fetch from Inventory</button>
             </div>
@@ -43,12 +43,17 @@
     </div>
 </template>
 <style lang="stylus" scoped>
+@import '../../styl/settings'
 .item-list
     padding-top 30px
     clear both
-.top-bar 
-    h4 
-        float left
+.top-bar
+    border-bottom 1px solid lighten(#202020, 20)
+    padding-bottom 10px
+    position relative
+    h4       
+        margin 0
+        self-center(vertical)
     .btn-group
             float right
 .label
@@ -56,14 +61,15 @@
     span
         display block
         margin-top 5px
+        color #202020
 </style>
 <script>
     import { mapActions, mapState,mapGetters } from 'vuex';
-    import Popup from  '../layouts/Popup.vue';
+    import Popup from  '../../layouts/Popup.vue';
     import AddProduct from './AddProduct.vue';
     import ViewProduct from './ViewProduct.vue';
-    import DataTable from './DataTable.vue';
-    import ItemImage from './itemImage.vue'
+    import DataTable from '../DataTable.vue';
+    import ItemImage from '../item/ItemImage.vue'
     import Velocity from 'velocity-animate';
     export default {
         props: ['location'],
@@ -116,7 +122,8 @@
             ]),
             ...mapGetters([
                 'activeInventory',
-                'parsedInventory'
+                'parsedInventory',
+                'activeCart'
             ]),
             
 

@@ -64,7 +64,6 @@ export default {
         overflow hidden
         border-radius 3px
         h4
-            color red
             text-transform uppercase
             padding 3% 5% 0 5%
             margin 0

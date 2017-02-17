@@ -5,20 +5,21 @@
     "start": "meteor run"
   },
   "dependencies": {
-    "babel-plugin-transform-runtime": "^6.22.0",
-    "babel-runtime": "^6.22.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-runtime": "^6.23.0",
+    "bcrypt": "^1.0.2",
     "linearicons": "^1.0.0",
     "meteor-node-stubs": "^0.2.5",
     "node-vibrant": "^2.1.2",
     "velocity-animate": "^1.4.2",
     "vue": "^2.1.10",
     "vue-multiselect": "^2.0.0-beta.13",
-    "vue-router": "^2.2.0",
-    "vuex": "^2.1.1",
+    "vue-router": "^2.2.1",
+    "vuex": "^2.1.2",
     "vuex-router-sync": "^4.1.2"
   },
   "devDependencies": {
-    "autoprefixer": "^6.7.2",
+    "autoprefixer": "^6.7.3",
     "kouto-swiss": "^1.0.0",
     "lost": "^8.0.0",
     "rucksack-css": "^0.9.1",

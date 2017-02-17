@@ -26,8 +26,8 @@
 import { mapActions, mapState,mapGetters } from 'vuex';
 import { toggleAddCart } from '../../vuex/actions';
 // Components
-import autoComplete from './autoComplete.vue';
-import imageSelect from './imageSelect.vue';
+import autoComplete from './form/AutoComplete.vue';
+import imageSelect from './image/ImageSelect.vue';
 export default {
 	created() {
 		console.log('Add Cart Form was created successfuly');

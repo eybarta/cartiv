@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import itemImage from "./itemImage.vue";
+import itemImage from "../item/ItemImage.vue";
 export default{
     props: ['images'],
     created() {

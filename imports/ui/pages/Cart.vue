@@ -9,7 +9,7 @@
                 </span>
             </div>
             <div class="cart-inventory">
-                <inventory :location="cart"></inventory>
+                <product-list :location="cart"></product-list>
 
 
             </div>
@@ -19,8 +19,8 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import itemImage from "../components/itemImage.vue";
-import Inventory from "../components/Inventory.vue";
+import itemImage from "../components/item/ItemImage.vue";
+import ProductList from "../components/inventory/ProductList.vue";
 export default{
     data(){
         return{
@@ -38,7 +38,7 @@ export default{
     },
     components: {
         itemImage,
-        Inventory,
+        ProductList,
     },
     computed: {
         ...mapGetters({

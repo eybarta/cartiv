@@ -83,13 +83,13 @@
 </template>
 <script>
 import { mapState, mapActions } from 'vuex';
-import ImageUploader from './ImageUploader.vue'
-import SelectWrap from './SelectWrap.vue'
+import ImageUploader from '../image/ImageUploader.vue'
+import SelectWrap from '../form/SelectWrap.vue'
 import Multiselect from 'vue-multiselect'
 import * as Vibrant from 'node-vibrant'
 
-import { color_data } from './plugins/color-data-set.js'
-import { get_dataset, ColorClassifier } from './plugins/color-classifier.js'
+import { color_data } from '../plugins/color-data-set.js'
+import { get_dataset, ColorClassifier } from '../plugins/color-classifier.js'
 export default{
     data(){
         return{
@@ -261,8 +261,8 @@ export default{
 }
 </script>
 <style lang="stylus">
-@import '../styl/variables.import';
-@import '../styl/settings';
+@import '../../styl/variables.import';
+@import '../../styl/settings';
  .add-product
     position absolute
     top 0

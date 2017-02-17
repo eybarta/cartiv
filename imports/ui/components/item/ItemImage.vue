@@ -11,7 +11,7 @@
 -->
 <script>
 import { mapActions } from 'vuex';
-import { updateCurrentCartThumb } from '../../vuex/actions';
+import { updateCurrentCartThumb } from '../../../vuex/actions';
 
 import ItemSettings from './ItemSettings.vue';
 export default{
@@ -60,7 +60,7 @@ export default{
         }
     },
     components: {
-        itemSettings
+        ItemSettings
     },
     methods: {
         ... mapActions([
