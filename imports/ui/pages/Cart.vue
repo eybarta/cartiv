@@ -3,7 +3,7 @@
         <div class="container">
             <div class="cart-info">
                 <!--<item-image :src="!!cart ? cart.thumb : null" default-view="fa fa-building-o" size="med" :loader="false"></item-image>-->
-                <span class="location-name txt-small ">
+                <span class="location-name txt-big ">
                     <i class="fa fa-location-arrow"></i>
                     <strong>{{!!cart ? cart.location : ''}}</strong>
                 </span>
@@ -50,7 +50,6 @@ export default{
 <style lang="stylus">
 @import '../styl/variables.import';
 .cart-info
-    border-bottom 1px solid orange
     padding-bottom 10px
     margin-bottom 30px
     .thumbnail

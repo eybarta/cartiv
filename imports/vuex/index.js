@@ -36,7 +36,7 @@ const mutations = {
     CALL_POPUP (state, data) {
         state.popup.active = true;
         state.popup.type = data.type;
-        state.popup.data = data.data || null;
+        state.popup.data = data.data || state.popup.data || null;
         state.popup.title = data.title || null;
         state.popup.ui = data.ui || 'circle';
 

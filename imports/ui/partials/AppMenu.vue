@@ -20,6 +20,7 @@ export default {
 }
 </script>
 <style lang="stylus">
+@import '~imports/ui/styl/variables.import';
 @import '~node_modules/rupture/rupture/index';
 @import "~node_modules/kouto-swiss/index";
 
@@ -29,19 +30,22 @@ color-white = quad( #abbabc )
 	top 0
 	width 100%
 	z-index 999
-	background rgba(0,0,0,0.9);
+	background lighten(#e7a255, 39)
 	height 50px
 	padding 0 20px
-	border-bottom 1px solid rgba(255,255,255,0.2)
+	box-shadow 0px 0px 3px lighten(#e7a255, 5)
 	a
+		font-family 'Helvetica Neue'
+		font-size 14px
 		text-decoration none
 		line-height 50px
 		display inline-block
 		margin-right 10px
-		color color-white[0]
+		letter-spacing 1px
+		color darktint
 		transition color 400ms ease
 		&:active, &:visited
-			color color-white[0]
+			color darktint
 		&.router-link-active
-			color color-white[1]
+			/*color orange*/
 </style>

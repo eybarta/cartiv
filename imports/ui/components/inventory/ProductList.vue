@@ -7,7 +7,7 @@
                 <button class="btn btn-success" @click.prevent="callPopup({ type:'addProduct'})">
                     Add New Product
                 </button>
-                <button v-if="!activeCart" class="btn btn-warning" 
+                <button v-if="activeCart" class="btn btn-warning" 
                     @click.prevent="callPopup({ title:'Select product', ui:'square', type:'DataTable', data:'parsedInventory' })">
                     Fetch from Inventory</button>
             </div>

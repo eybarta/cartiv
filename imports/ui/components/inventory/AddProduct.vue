@@ -334,7 +334,7 @@ export default{
                 font-size  34px
                 font-weight 300
                 color lighten(gray, 20)
-                margin 20% 0 0
+                margin 20% 0 5%
                 &:first-child
                     margin-top 0
             input, textarea

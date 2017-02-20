@@ -1,6 +1,6 @@
 <template>
 	<div v-show="!!userId" class="app-wrap">
-		<app-menu></app-menu> 
+		<app-menu v-show="route.name!='home'"></app-menu> 
 		<router-view></router-view>
 	</div>
 </template>
@@ -22,7 +22,8 @@ export default {
 	},
 	computed: {
 		...mapState([
-			'userId'
+			'userId',
+			'route'
 		])
 	}
 }
@@ -31,5 +32,5 @@ export default {
 .app-wrap
 	width 100%
 	height 100%
-	background url('/img/background_hp.jpg') no-repeat 50% 0 / cover
+	/*background url('/img/background_hp.jpg') no-repeat 50% 0 / cover*/
 </style>

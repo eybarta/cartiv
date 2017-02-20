@@ -7,7 +7,6 @@
 			<transition-group class="waffle-parent-3" name="flip-list" tag="ul" appear>
 				<li class="new-cart" @click.prevent="toggleAddCart" :key="0">
 					<div class="location-thumb">
-						<i class="fa fa-plus big-icon"></i>
 					</div>
 				</li>
 				<li v-for="cart in carts" :key="cart._id">
@@ -67,10 +66,9 @@ export default {
 @import "~node_modules/kouto-swiss/index";
 @import '~node_modules/rupture/rupture/index';
 @import '../styl/settings';
+@import '../styl/variables.import';
 .flip-list-move
 	transition transform 1s
-
-
 .carts
 	ul
 		li
@@ -79,7 +77,7 @@ export default {
 			&.new-cart
 				cursor pointer
 				.location-thumb
-					border-color darken(#eaae6b, 5)
+					border-color darktint
 					i
 						color darken(#eaae6b, 5)
 				.location-name i

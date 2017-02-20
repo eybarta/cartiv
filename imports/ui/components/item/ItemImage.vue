@@ -81,10 +81,14 @@ export default{
                     console.log("error loading img > ", e);
                     $(this).remove();
                     ref.loaded = false;
-                }).load(function() {
+                }).load(function(err, result) {
+                    console.log('img loaded ?? ', err, result, this.height);
+                    if (this.height!=100)
+                     {
+                        ref.loaded = true;
+                        ref.$el.style = `background-image:url(${src}); background-size:108% 108%;`
+                     }
                     $(this).remove();
-                    ref.loaded = true;
-                    ref.$el.style = `background-image:url(${src}); background-size:108% 108%;`
                 });
             },200)
         }
