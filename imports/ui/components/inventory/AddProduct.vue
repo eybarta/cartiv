@@ -71,7 +71,7 @@
                                 
                             </li>
                         </ul>
-                        <label class="addtocart"><input v-model="addtocart" type="checkbox"> <span>Add to this cart?</span></label>
+                        <label class="addtocart" v-if="!!activeCart"><input v-model="addtocart" type="checkbox"> <span>Add to this cart?</span></label>
                     </div>
             </transition>
             <div class="nav-btns">
@@ -82,7 +82,7 @@
     </div>
 </template>
 <script>
-import { mapState, mapActions } from 'vuex';
+import { mapState, mapGetters, mapActions } from 'vuex';
 import ImageUploader from '../image/ImageUploader.vue'
 import SelectWrap from '../form/SelectWrap.vue'
 import Multiselect from 'vue-multiselect'
@@ -246,6 +246,9 @@ export default{
         ...mapState([
             'productOptions',
             'popup'
+        ]),
+        ...mapGetters([
+            'activeCart'
         ]),
         notFirstStep() {
             return this.steps.active > 1

@@ -74,12 +74,14 @@ export default {
 		li
 			color #fff
 			text-align center
+			.thumbnail i
+				color lighten(darktint, 35)
 			&.new-cart
 				cursor pointer
 				.location-thumb
 					border-color darktint
 					i
-						color darken(#eaae6b, 5)
+						color darktint
 				.location-name i
 					color darken(#eaae6b, 5)
 

@@ -47,6 +47,22 @@ button
 			transition background 200ms ease
 			&:hover
 				background rgba(red, 0.1)
+	&.rnd
+		border-radius 100%
+		border 1px solid transparent
+		width 40px
+		height 40px
+		padding 0
+		i
+			color lighten(darktint, 20)
+			font-size 18px
+			transition color 300ms ease
+		&:hover
+			i
+				color darktint
+	&.disabled
+		pointer-events none
+		opacity 0.3
 .btn-group
 	&.center
 		text-align center

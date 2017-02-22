@@ -16,7 +16,7 @@ export default {
 		}
 	},
 	created() {
-		console.log('test was created successfuly');
+		console.log('POOOOOOOOOPPPPUPPPPP WAS created successfuly');
 	},
 	methods: {
 		...mapActions([
