@@ -23,7 +23,7 @@ Meteor.methods({
     'inventory.insert'(product) {
         console.log("PROUDCT TO INSERT<", product);
         // check(product.type.value, String);
-        check(product.priceMin, Number);
+        check(product.minimum_price, Number);
         check(product.amount, Number)
 
         if (! this.userId) {

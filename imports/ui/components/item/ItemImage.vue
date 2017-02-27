@@ -82,7 +82,7 @@ export default{
                     $(this).remove();
                     ref.loaded = false;
                 }).load(function(err, result) {
-                    console.log('img loaded ?? ', err, result, this.height);
+                    // console.log('img loaded ?? ', err, result, this.height);
                     if (this.height!=100)
                      {
                         ref.loaded = true;

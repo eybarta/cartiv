@@ -7,8 +7,8 @@
 			:loader="false">
 		</item-image>
 		<ul>
-			<li class="clearfix" v-for="value, key in productProps">
-				<strong class="col-6">{{ key }}: </strong>
+			<li class="clearfix" v-for="value, key in productProps" v-if="!!value">
+				<strong class="col-6">{{ parseKey(key) }}: </strong>
 				<span class="col-6">{{ value }}</span>
 			</li>
 		</ul>
@@ -36,6 +36,9 @@ export default {
 		]),
 		cloneItem() {
 			return _.merge(this.product,{_id:null})
+		},
+		parseKey(key) {
+			return key.replace('_', ' ');
 		}
 	},
 	computed: {
@@ -43,20 +46,30 @@ export default {
 			product: state => state.popup.data
 		}),
 		productProps() {
-			return _.omit(this.product, ['image', '_id', 'cartId', 'atLocations'])
+			console.log('product :: ', this.product);
+			let product = _.omit(this.product, ['image', '_id', 'cartId', 'atLocations'])
+			// console.log('product omitted:: ', product);
+			// return _.map(_.omit(this.product, ['image', '_id', 'cartId', 'atLocations']), (val,key) => {
+			// 	return {
+			// 		key: val
+			// 	}
+			// })
+			return product
 		}
 	}
 }
 </script>
 <style lang="stylus" scoped>
+@import '../../styl/settings';
 .view-product
-	padding 4%
+	width 80%
+	self-center()
 	.thumbnail
 		height auto
 		width 25%
 		padding-top 25%
 	ul
-		padding 5% 30%
+		padding 5% 25%
 		li
 			padding 10px 0 10px
 			border-bottom 1px solid #c2c2c2

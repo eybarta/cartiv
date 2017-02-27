@@ -19,12 +19,13 @@ export default {
 <style lang="stylus">
 @import '~imports/ui/styl/variables.import'
 .mask
-	position absolute
+	position fixed
 	top 0
 	left 0
 	right 0
 	bottom 0
 	background rgba(gray, 0.8)
+	z-index 99999
 .modal
 	position absolute
 	top 50%

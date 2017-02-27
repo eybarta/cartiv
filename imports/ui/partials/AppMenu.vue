@@ -32,7 +32,7 @@ color-white = quad( #abbabc )
 	z-index 999
 	background lighten(#e7a255, 39)
 	height 50px
-	padding 0 20px
+	padding 0 4%
 	box-shadow 0px 0px 3px lighten(#e7a255, 5)
 	a
 		font-family 'Helvetica Neue'

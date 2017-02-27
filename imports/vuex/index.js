@@ -117,10 +117,12 @@ const getters = {
         return !!cartId ? cart : null;
     },
     activeInventory: state => {
+        // check if param is coming from call (usually popup for ALL inventory)
+        let param = state.popup.data;
         let cartId = state.route.params.cartId,
             inventory = state.inventory;
         
-        if (!!cartId) {
+        if (!!cartId && !param) {
             // Fetch only for this cart
             return _.filter(inventory, product => {
                 let locations = _.map(product.atLocations, 'locationId');
@@ -130,9 +132,8 @@ const getters = {
             return inventory
         }
     },
-    parsedInventory: state => {
-        let inventory = state.inventory;
-        return _.map(inventory, product => {
+    parsedInventory: (state, getters) => {
+        return _.map(getters.activeInventory, product => {
             return {
                 _id: product._id,
                 image: product.image,
@@ -141,7 +142,9 @@ const getters = {
                 brand: product.brand,
                 size: product.size,
                 amount: product.amount,
-                price: product.priceMax || product.priceMin,
+                minimum_price: product.minimum_price,
+                maximum_price: product.maximum_price,
+                // price: product.priceMax ? product.priceMin + ' - ' + product.priceMax : product.priceMin,
                 atLocations: product.atLocations || null
             }
         })

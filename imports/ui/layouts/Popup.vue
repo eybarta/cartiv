@@ -70,5 +70,7 @@ export default {
             font-weight 300
             letter-spacing 1.2px
         &.circle
-            border-radius 100%            
+            border-radius 100%  
+            width 95vmin
+            height @width          
 </style>

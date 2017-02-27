@@ -152,12 +152,12 @@ export default{
     },
     methods: {
         itemParse(item) {
-            item.price = item.priceMin + ((!!item.priceMax) ? " - " + item.priceMax : '');
+            item.price = item.minimum_price + ((!!item.maximum_price) ? " - " + item.maximum_price : '');
             item.id = item._id;
 
-            delete item.priceMin
-            if (item.priceMax) {
-                delete item.priceMax
+            delete item.minimum_price
+            if (item.maximum_price) {
+                delete item.maximum_price
             }
 
             return item;
@@ -220,8 +220,8 @@ export default{
                     brand: !!this.brand ? this.brand : null,
                     category: !!this.category ? this.category : null,
                     size: !!this.size ? this.size : null,
-                    priceMin: price[0],
-                    priceMax: price[1],
+                    minimum_price: price[0],
+                    maximum_price: price[1],
                     amount: parseInt(this.amount),
                     color: this.color,                 
                     cost: !!this.cost ? parseInt(this.cost) : null,

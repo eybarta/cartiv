@@ -15,7 +15,7 @@
 		</item-image>
 		<div class="label txt-small">
 			<span>{{item.name}}</span>
-			<span v-if="type=='product'"><strong>$ {{ item.priceMin }} {{ !!item.priceMax ? ' - ' + item.priceMax : '' }}</strong></span>
+			<span v-if="type=='product'"><strong>$ {{ item.minimum_price }} {{ !!item.maximum_price ? ' - ' + item.maximum_price : '' }}</strong></span>
 		</div>
 	</li>
 </transition-group>
